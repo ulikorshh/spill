@@ -2,9 +2,7 @@
     <div id="selveSpillet">
     <div id="pcKort"></div>
     <div id="kortbunke"></div>
-    <div id="dineKort">
-        <div id="bildecontainer"></div>
-    </div>
+    <div id="dineKort"></div>
     </div>
     
 
@@ -52,7 +50,7 @@
                 console.log("kortet er unikt")
                 let nyttBilde = document.createElement("img")
                 nyttBilde.src =(kort[0].image)
-                container.appendChild(nyttBilde)
+                dineKortEl.appendChild(nyttBilde)
             }
             if(i%2!==0){
                 pcKort.push(kort[0])
@@ -64,8 +62,7 @@
         }
         else{
             console.log("et kort er duplikat")
-            i = i-1
-            trekkSpillerkort()
+            trekkSpillerkort(i)
         }
 
     }
