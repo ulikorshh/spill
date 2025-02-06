@@ -1,5 +1,85 @@
 <html>
-    <div>
-        <h1>hei</h1>
+    <div id="selveSpillet">
+    <div id="pcKort"></div>
+    <div id="kortbunke"></div>
+    <div id="dineKort">
+        <div id="bildecontainer"></div>
     </div>
+    </div>
+    
+
+    <div id="kortstokk"></div>
+
 </html>
+
+<style>
+    #dineKort{
+        display: flex;
+        flex-direction: row;
+    }
+
+</style>
+
+<script>
+    selveSpilletEl = document.querySelector("#selveSpillet")
+    pcKortEl = document.querySelector("#pcKort")
+    kortbunkeEl = document.querySelector("#kortbunke")
+    dineKortEl = document.querySelector("#dineKort")
+
+    let container = document.querySelector("#bildecontainer")
+    
+    let antall = 10
+    let dineKort = []
+    let pcKort = []
+    
+    let kort_koder = []
+
+    let trekkSpillerkort = async(i) =>{
+
+        
+        let data = await fetch('https://deckofcardsapi.com/api/deck/new/draw/')
+
+        let json = await data.json()
+        let kort = json.cards
+        //console.log(kort)
+    
+
+        if(!kort_koder.includes(kort[0].code)){
+            kort_koder.push(kort[0].code)
+            //console.log("i er:", i)
+            if(i%2==0){
+                dineKort.push(kort[0])
+                console.log("kortet er unikt")
+                let nyttBilde = document.createElement("img")
+                nyttBilde.src =(kort[0].image)
+                container.appendChild(nyttBilde)
+            }
+            if(i%2!==0){
+                pcKort.push(kort[0])
+                console.log(kort[0].value)
+            }
+            
+            
+
+        }
+        else{
+            console.log("et kort er duplikat")
+            i = i-1
+            trekkSpillerkort()
+        }
+
+    }
+   
+    for (i=0;i<antall;i++){
+        trekkSpillerkort(i)
+
+
+    }
+
+    console.log("kort kodene er: ",kort_koder)
+    console.log("dine kort er: ",dineKort)
+    console.log("pc-ens kort er: ",pcKort)
+
+
+</script>
+
