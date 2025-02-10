@@ -1,65 +1,93 @@
 <html>
     <div id="selveSpillet">
     <div id="pcKort"></div>
-    <div id="kortbunke"></div>
+    <div id="midtenKort"></div>
     <div id="dineKort"></div>
     </div>
-    
+
     <div id="kortstokk"></div>
- 
 </html>
  
 <style>
     #dineKort{
         display: flex;
         flex-direction: row;
+        gap: 5px;
     }
+    #pcKort {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    }
+
+    #pcKort > img {
+    width: 50px;
+}
  
 </style>
  
 <script>
     selveSpilletEl = document.querySelector("#selveSpillet")
     pcKortEl = document.querySelector("#pcKort")
-    kortbunkeEl = document.querySelector("#kortbunke")
+    midtenKortEl = document.querySelector("#midtenKort")
     dineKortEl = document.querySelector("#dineKort")
     
-    let antall = 10
+    let antall = 11
     let dineKort = []
     let pcKort = []
-    
+    let midtenKort = []
+
     let kort_koder = []
  
     let trekkSpillerkort = async(i) =>{
- 
         
         let data = await fetch('https://deckofcardsapi.com/api/deck/new/draw/')
- 
         let json = await data.json()
         let kort = json.cards
-        //console.log(kort)
-    
  
         if(!kort_koder.includes(kort[0].code)){
             kort_koder.push(kort[0].code)
             //console.log("i er:", i)
-            if(i%2==0){
+            if(i == 10){
+                midtenKort.push(kort[0])
+                let midtenBilde = document.createElement("img")
+                midtenBilde.src =(kort[0].image)
+                midtenBilde.setAttribute("id",kort[0].code)
+                //console.log(kort[0].value)
+
+                midtenKortEl.appendChild(midtenBilde)
+                }
+
+            else if(i%2==0){
                 dineKort.push(kort[0])
                 console.log("kortet er unikt")
-                let nyttBilde = document.createElement("img")
-                nyttBilde.src =(kort[0].image)
-                dineKortEl.appendChild(nyttBilde)
+
+                let nyttSpillerBilde = document.createElement("img")
+                nyttSpillerBilde.src =(kort[0].image)
+                nyttSpillerBilde.addEventListener("click", sjekkKanLeggesPaa)
+                nyttSpillerBilde.setAttribute("id",kort[0].code)
+                console.log("navnet på kort er: "+ nyttSpillerBilde.id) 
+
+                dineKortEl.appendChild(nyttSpillerBilde)
+
+                
+                
             }
             if(i%2!==0){
                 pcKort.push(kort[0])
+                console.log(kort[0].value)
+                let nyttPCbilde = document.createElement("img")
+                nyttPCbilde.src = "/Users/sofiyaborshch/Documents/GitHub/spill/bilder/kortBakside.jpeg"
+
+                pcKortEl.appendChild(nyttPCbilde)
             }
             
-            
- 
         }
         else{
             console.log("et kort er duplikat")
             trekkSpillerkort(i)
         }
+        
  
     }
    
@@ -68,7 +96,12 @@
  
  
     }
- 
+
+    function sjekkKanLeggesPaa() {
+        console.log("nei")
+
+    }
+
     console.log("kort kodene er: ",kort_koder)
     console.log("dine kort er: ",dineKort)
     console.log("pc-ens kort er: ",pcKort)
