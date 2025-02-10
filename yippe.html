@@ -31,11 +31,11 @@
     pcKortEl = document.querySelector("#pcKort")
     midtenKortEl = document.querySelector("#midtenKort")
     dineKortEl = document.querySelector("#dineKort")
-    
+
+    let midtenBilde = ""
     let antall = 11
     let dineKort = []
     let pcKort = []
-    let midtenKort = []
 
     let kort_koder = []
  
@@ -47,13 +47,14 @@
  
         if(!kort_koder.includes(kort[0].code)){
             kort_koder.push(kort[0].code)
-            //console.log("i er:", i)
+
             if(i == 10){
-                midtenKort.push(kort[0])
-                let midtenBilde = document.createElement("img")
+
+                midtenBilde = document.createElement("img")
                 midtenBilde.src =(kort[0].image)
-                midtenBilde.setAttribute("id",kort[0].code)
-                //console.log(kort[0].value)
+                midtenBilde.setAttribute("id",kort[0].value)
+                midtenBilde.setAttribute("class",kort[0].suit)
+                
 
                 midtenKortEl.appendChild(midtenBilde)
                 }
@@ -65,13 +66,13 @@
                 let nyttSpillerBilde = document.createElement("img")
                 nyttSpillerBilde.src =(kort[0].image)
                 nyttSpillerBilde.addEventListener("click", sjekkKanLeggesPaa)
-                nyttSpillerBilde.setAttribute("id",kort[0].code)
+                nyttSpillerBilde.setAttribute("id",kort[0].value)
+                nyttSpillerBilde.setAttribute("class",kort[0].suit)
+                //nyttSpillerBilde.setAttribute("class",kort[0].code)
                 console.log("navnet på kort er: "+ nyttSpillerBilde.id) 
+                console.log("suiten på dette kortet er "+kort[0].suit)
 
-                dineKortEl.appendChild(nyttSpillerBilde)
-
-                
-                
+                dineKortEl.appendChild(nyttSpillerBilde) 
             }
             if(i%2!==0){
                 pcKort.push(kort[0])
@@ -88,18 +89,42 @@
             trekkSpillerkort(i)
         }
         
- 
     }
    
     for (i=0;i<antall;i++){
         trekkSpillerkort(i)
- 
- 
     }
 
     function sjekkKanLeggesPaa() {
         console.log("nei")
+        console.log("Dette kortets suit:", this.className);
+        console.log("Midten korts suit:", midtenBilde.className);
 
+        if (this.id == midtenBilde.id) {
+            console.log("lik value")
+            midtenKortEl.innerHTML=""
+            midtenKortEl.appendChild(this)
+            midtenBilde.setAttribute("id",this.id)
+            midtenBilde.setAttribute("class",this.className)
+        }
+
+        else if (this.className == midtenBilde.className) { //className og ikke class fordi class er bare "suit", mens classname er nøkkelen, f.eks "Diamonds"
+            console.log("lik suit")
+            midtenKortEl.innerHTML=""
+            midtenKortEl.appendChild(this)
+            midtenBilde.setAttribute("id",this.id)
+            midtenBilde.setAttribute("class",this.className)
+        }
+
+        else if(this.id == 8){
+            console.log("8 tall")
+            midtenKortEl.innerHTML=""
+            midtenKortEl.appendChild(this)
+            midtenBilde.setAttribute("id",this.id)
+            midtenBilde.setAttribute("class",this.className)
+        }
+
+        
     }
 
     console.log("kort kodene er: ",kort_koder)
