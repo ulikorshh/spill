@@ -34,19 +34,14 @@
     midtenKortEl = document.querySelector("#midtenKort")
     dineKortEl = document.querySelector("#dineKort")
 
-    knappEl = document.querySelector("#knapp")
-    knappEl.addEventListener("click", trekkEkstraKort)
 
     let midtenBilde = ""
     let antall = 11
     let dineKort = []
     let pcKort = []
-    let kortetSomTrekkes = []
-
     let kort_koder = []
-    let utdeling = true
 
-    
+    let erSpillerAktiv = true
 
     let trekkSpillerkort = async (i) => {
 
@@ -57,50 +52,48 @@
         if (!kort_koder.includes(kort[0].code)) {
             kort_koder.push(kort[0].code)
 
-            if (utdeling == true) {
-                if (i == 10) {
 
-                    midtenBilde = document.createElement("img")
-                    midtenBilde.src = (kort[0].image)
-                    midtenBilde.setAttribute("id", kort[0].value)
-                    midtenBilde.setAttribute("class", kort[0].suit)
+            if (i == 10) {
+
+                midtenBilde = document.createElement("img")
+                midtenBilde.src = (kort[0].image)
+                midtenBilde.setAttribute("id", kort[0].value)
+                midtenBilde.setAttribute("class", kort[0].suit)
 
 
-                    midtenKortEl.appendChild(midtenBilde)
-                }
-
-                else if (i % 2 == 0) {
-                    dineKort.push(kort[0])
-                    console.log("kortet er unikt")
-
-                    let nyttSpillerBilde = document.createElement("img")
-                    nyttSpillerBilde.src = (kort[0].image)
-                    nyttSpillerBilde.addEventListener("click", sjekkKanLeggesPaa)
-                    nyttSpillerBilde.setAttribute("id", kort[0].value)
-                    nyttSpillerBilde.setAttribute("class", kort[0].suit)
-                    //nyttSpillerBilde.setAttribute("class",kort[0].code)
-                    console.log("navnet på kort er: " + nyttSpillerBilde.id)
-                    console.log("suiten på dette kortet er " + kort[0].suit)
-
-                    dineKortEl.appendChild(nyttSpillerBilde)
-                }
-                if (i % 2 !== 0) {
-                    pcKort.push(kort[0])
-                    console.log(kort[0].value)
-                    let nyttPCbilde = document.createElement("img")
-                    nyttPCbilde.src = "/Users/sofiyaborshch/Documents/GitHub/spill/bilder/kortBakside.jpeg"
-
-                    pcKortEl.appendChild(nyttPCbilde)
-                }
-                
+                midtenKortEl.appendChild(midtenBilde)
             }
-            kortetSomTrekkes.push(kort[0])
-            
+
+            else if (i % 2 == 0) {
+                dineKort.push(kort[0])
+                //console.log("kortet er unikt")
+
+                let nyttSpillerBilde = document.createElement("img")
+                nyttSpillerBilde.src = (kort[0].image)
+                nyttSpillerBilde.addEventListener("click", sjekkKanLeggesPaa)
+                nyttSpillerBilde.setAttribute("id", kort[0].value)
+                nyttSpillerBilde.setAttribute("class", kort[0].suit)
+                //nyttSpillerBilde.setAttribute("class",kort[0].code)
+                //console.log("navnet på kort er: " + nyttSpillerBilde.id)
+                //console.log("suiten på dette kortet er " + kort[0].suit)
+
+                dineKortEl.appendChild(nyttSpillerBilde)
+            }
+            if (i % 2 !== 0) {
+                pcKort.push(kort[0])
+                //console.log(kort[0].value)
+                let nyttPCbilde = document.createElement("img")
+                nyttPCbilde.src = "/Users/sofiyaborshch/Documents/GitHub/spill/bilder/kortBakside.jpeg"
+                nyttPCbilde.setAttribute("id", kort[0].value)
+                nyttPCbilde.setAttribute("class", kort[0].suit)
+
+                pcKortEl.appendChild(nyttPCbilde)
+            }
+
         }
-        
 
         else {
-            console.log("et kort er duplikat")
+            //console.log("et kort er duplikat")
             trekkSpillerkort(i)
         }
 
@@ -109,50 +102,124 @@
     for (i = 0; i < antall; i++) {
         trekkSpillerkort(i)
     }
-    
+
 
     function sjekkKanLeggesPaa() {
-        console.log("nei")
-        console.log("Dette kortets suit:", this.className);
-        console.log("Midten korts suit:", midtenBilde.className);
+
 
         if (this.id == midtenBilde.id) {
-            console.log("lik value")
+            //console.log("lik value")
             midtenKortEl.innerHTML = ""
             midtenKortEl.appendChild(this)
             midtenBilde.setAttribute("id", this.id)
             midtenBilde.setAttribute("class", this.className)
+
+            sjekkOmPCkortKanLeggesPaa()
         }
 
         else if (this.className == midtenBilde.className) { //className og ikke class fordi class er bare "suit", mens classname er nøkkelen, f.eks "Diamonds"
-            console.log("lik suit")
+            //console.log("lik suit")
             midtenKortEl.innerHTML = ""
             midtenKortEl.appendChild(this)
             midtenBilde.setAttribute("id", this.id)
             midtenBilde.setAttribute("class", this.className)
+
+            sjekkOmPCkortKanLeggesPaa()
         }
 
         else if (this.id == 8) {
-            console.log("8 tall")
+ 
             midtenKortEl.innerHTML = ""
             midtenKortEl.appendChild(this)
             midtenBilde.setAttribute("id", this.id)
             midtenBilde.setAttribute("class", this.className)
+            
+            sjekkOmPCkortKanLeggesPaa()
         }
+    }
 
+    let trekkEkstraSpillerkort = async () => {
+
+        let data = await fetch('https://deckofcardsapi.com/api/deck/new/draw/')
+        let json = await data.json()
+        let kort = json.cards
+
+        if (!kort_koder.includes(kort[0].code)) {
+            kort_koder.push(kort[0].code)
+            dineKort.push(kort[0])
+            let nyttSpillerBilde = document.createElement("img")
+            nyttSpillerBilde.src = (kort[0].image)
+            nyttSpillerBilde.addEventListener("click", sjekkKanLeggesPaa)
+            nyttSpillerBilde.setAttribute("id", kort[0].value)
+            nyttSpillerBilde.setAttribute("class", kort[0].suit)
+            dineKortEl.appendChild(nyttSpillerBilde)
+        }
+        else {
+            console.log("kortet var duplikat")
+            trekkEkstraSpillerkort()
+        }
+    }
+
+    knappEl = document.querySelector("#knapp")
+    knappEl.addEventListener("click", trekkEkstraSpillerkort)
+
+    let PCkortSomKanSpilles = []
+
+    function sjekkOmPCkortKanLeggesPaa() {
+        console.log("pc_legge_på start")
+        for (let j = 0; j < pcKort.length; j++) {
+            if (pcKort[j].value == midtenBilde.id) {
+                PCkortSomKanSpilles.push(pcKort[j])
+
+            }
+
+            else if (pcKort[j].suit == midtenBilde.className) { //className og ikke class fordi class er bare "suit", mens classname er nøkkelen, f.eks "Diamonds"
+                PCkortSomKanSpilles.push(pcKort[j])
+
+            }
+
+            else if (pcKort[j].value == 8) {
+                PCkortSomKanSpilles.push(pcKort[j])
+
+                
+            }
+        }
+        console.log("kortene pc-en kan legge på er: " + PCkortSomKanSpilles)
+
+        setTimeout(() => {
+    let kortetPCvelger = Math.floor(Math.random() * PCkortSomKanSpilles.length);
+    let valgtKort = PCkortSomKanSpilles[kortetPCvelger];
+
+    let pcSpiltKort = document.createElement("img");
+    pcSpiltKort.src = valgtKort.image;
+    pcSpiltKort.setAttribute("id", valgtKort.value);
+    pcSpiltKort.setAttribute("class", valgtKort.suit);
+
+    midtenKortEl.innerHTML = "";
+    midtenKortEl.appendChild(pcSpiltKort);
+
+    midtenBilde.setAttribute("id", valgtKort.value);
+    midtenBilde.setAttribute("class", valgtKort.suit);
+
+    console.log("PC har lagt på kort:", valgtKort);
+}, 1000); // 1000 ms = 1 sekund forsinkelse
+
+
+        console.log("pc_legg_på slutt")
 
     }
 
-    function trekkEkstraKort() {
-        utdeling = false
-        trekkSpillerkort()
-        dineKort.push(kortetSomTrekkes[0])
-        kortetSomTrekkes.pop[0]
-    }
+    
+
+    /* if (erSpillerAktiv === false) {
+         setTimeout(() => {
+             pcenSpiller();
+         }, 1000);
+         console.log("spiller aktivitet: ", erSpillerAktiv)
+     }*/
 
     console.log("kort kodene er: ", kort_koder)
     console.log("dine kort er: ", dineKort)
     console.log("pc-ens kort er: ", pcKort)
-
 
 </script>
