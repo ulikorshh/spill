@@ -1,99 +1,115 @@
 <html>
-    <div id="selveSpillet">
+<div id="selveSpillet">
     <div id="pcKort"></div>
     <div id="midtenKort"></div>
     <div id="dineKort"></div>
-    </div>
+    <div id="knapp">trekk kort</div>
+</div>
 
-    <div id="kortstokk"></div>
+<div id="kortstokk"></div>
+
 </html>
- 
+
 <style>
-    #dineKort{
+    #dineKort {
         display: flex;
         flex-direction: row;
         gap: 5px;
     }
+
     #pcKort {
-    display: flex;
-    flex-direction: row;
-    gap: 5px;
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
     }
 
-    #pcKort > img {
-    width: 50px;
-}
- 
+    #pcKort>img {
+        width: 50px;
+    }
 </style>
- 
+
 <script>
     selveSpilletEl = document.querySelector("#selveSpillet")
     pcKortEl = document.querySelector("#pcKort")
     midtenKortEl = document.querySelector("#midtenKort")
     dineKortEl = document.querySelector("#dineKort")
 
+    knappEl = document.querySelector("#knapp")
+    knappEl.addEventListener("click", trekkEkstraKort)
+
     let midtenBilde = ""
     let antall = 11
     let dineKort = []
     let pcKort = []
+    let kortetSomTrekkes = []
 
     let kort_koder = []
- 
-    let trekkSpillerkort = async(i) =>{
-        
+    let utdeling = true
+
+    
+
+    let trekkSpillerkort = async (i) => {
+
         let data = await fetch('https://deckofcardsapi.com/api/deck/new/draw/')
         let json = await data.json()
         let kort = json.cards
- 
-        if(!kort_koder.includes(kort[0].code)){
+
+        if (!kort_koder.includes(kort[0].code)) {
             kort_koder.push(kort[0].code)
 
-            if(i == 10){
+            if (utdeling == true) {
+                if (i == 10) {
 
-                midtenBilde = document.createElement("img")
-                midtenBilde.src =(kort[0].image)
-                midtenBilde.setAttribute("id",kort[0].value)
-                midtenBilde.setAttribute("class",kort[0].suit)
-                
+                    midtenBilde = document.createElement("img")
+                    midtenBilde.src = (kort[0].image)
+                    midtenBilde.setAttribute("id", kort[0].value)
+                    midtenBilde.setAttribute("class", kort[0].suit)
 
-                midtenKortEl.appendChild(midtenBilde)
+
+                    midtenKortEl.appendChild(midtenBilde)
                 }
 
-            else if(i%2==0){
-                dineKort.push(kort[0])
-                console.log("kortet er unikt")
+                else if (i % 2 == 0) {
+                    dineKort.push(kort[0])
+                    console.log("kortet er unikt")
 
-                let nyttSpillerBilde = document.createElement("img")
-                nyttSpillerBilde.src =(kort[0].image)
-                nyttSpillerBilde.addEventListener("click", sjekkKanLeggesPaa)
-                nyttSpillerBilde.setAttribute("id",kort[0].value)
-                nyttSpillerBilde.setAttribute("class",kort[0].suit)
-                //nyttSpillerBilde.setAttribute("class",kort[0].code)
-                console.log("navnet på kort er: "+ nyttSpillerBilde.id) 
-                console.log("suiten på dette kortet er "+kort[0].suit)
+                    let nyttSpillerBilde = document.createElement("img")
+                    nyttSpillerBilde.src = (kort[0].image)
+                    nyttSpillerBilde.addEventListener("click", sjekkKanLeggesPaa)
+                    nyttSpillerBilde.setAttribute("id", kort[0].value)
+                    nyttSpillerBilde.setAttribute("class", kort[0].suit)
+                    //nyttSpillerBilde.setAttribute("class",kort[0].code)
+                    console.log("navnet på kort er: " + nyttSpillerBilde.id)
+                    console.log("suiten på dette kortet er " + kort[0].suit)
 
-                dineKortEl.appendChild(nyttSpillerBilde) 
+                    dineKortEl.appendChild(nyttSpillerBilde)
+                }
+                if (i % 2 !== 0) {
+                    pcKort.push(kort[0])
+                    console.log(kort[0].value)
+                    let nyttPCbilde = document.createElement("img")
+                    nyttPCbilde.src = "/Users/sofiyaborshch/Documents/GitHub/spill/bilder/kortBakside.jpeg"
+
+                    pcKortEl.appendChild(nyttPCbilde)
+                }
+                
             }
-            if(i%2!==0){
-                pcKort.push(kort[0])
-                console.log(kort[0].value)
-                let nyttPCbilde = document.createElement("img")
-                nyttPCbilde.src = "/Users/sofiyaborshch/Documents/GitHub/spill/bilder/kortBakside.jpeg"
-
-                pcKortEl.appendChild(nyttPCbilde)
-            }
+            kortetSomTrekkes.push(kort[0])
             
         }
-        else{
+        
+
+        else {
             console.log("et kort er duplikat")
             trekkSpillerkort(i)
         }
-        
+
     }
-   
-    for (i=0;i<antall;i++){
+
+    for (i = 0; i < antall; i++) {
         trekkSpillerkort(i)
     }
+    
 
     function sjekkKanLeggesPaa() {
         console.log("nei")
@@ -102,34 +118,41 @@
 
         if (this.id == midtenBilde.id) {
             console.log("lik value")
-            midtenKortEl.innerHTML=""
+            midtenKortEl.innerHTML = ""
             midtenKortEl.appendChild(this)
-            midtenBilde.setAttribute("id",this.id)
-            midtenBilde.setAttribute("class",this.className)
+            midtenBilde.setAttribute("id", this.id)
+            midtenBilde.setAttribute("class", this.className)
         }
 
         else if (this.className == midtenBilde.className) { //className og ikke class fordi class er bare "suit", mens classname er nøkkelen, f.eks "Diamonds"
             console.log("lik suit")
-            midtenKortEl.innerHTML=""
+            midtenKortEl.innerHTML = ""
             midtenKortEl.appendChild(this)
-            midtenBilde.setAttribute("id",this.id)
-            midtenBilde.setAttribute("class",this.className)
+            midtenBilde.setAttribute("id", this.id)
+            midtenBilde.setAttribute("class", this.className)
         }
 
-        else if(this.id == 8){
+        else if (this.id == 8) {
             console.log("8 tall")
-            midtenKortEl.innerHTML=""
+            midtenKortEl.innerHTML = ""
             midtenKortEl.appendChild(this)
-            midtenBilde.setAttribute("id",this.id)
-            midtenBilde.setAttribute("class",this.className)
+            midtenBilde.setAttribute("id", this.id)
+            midtenBilde.setAttribute("class", this.className)
         }
 
-        
+
     }
 
-    console.log("kort kodene er: ",kort_koder)
-    console.log("dine kort er: ",dineKort)
-    console.log("pc-ens kort er: ",pcKort)
- 
- 
+    function trekkEkstraKort() {
+        utdeling = false
+        trekkSpillerkort()
+        dineKort.push(kortetSomTrekkes[0])
+        kortetSomTrekkes.pop[0]
+    }
+
+    console.log("kort kodene er: ", kort_koder)
+    console.log("dine kort er: ", dineKort)
+    console.log("pc-ens kort er: ", pcKort)
+
+
 </script>
