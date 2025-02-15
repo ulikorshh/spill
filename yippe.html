@@ -11,6 +11,10 @@
 </html>
 
 <style>
+    #selveSpillet {
+        width: 1vw;
+    }
+
     #dineKort {
         display: flex;
         flex-direction: row;
@@ -41,7 +45,7 @@
     let pcKort = []
     let kort_koder = []
 
-    let erSpillerAktiv = true
+    //let erSpillerAktiv = true
 
     let trekkSpillerkort = async (i) => {
 
@@ -128,12 +132,12 @@
         }
 
         else if (this.id == 8) {
- 
+
             midtenKortEl.innerHTML = ""
             midtenKortEl.appendChild(this)
             midtenBilde.setAttribute("id", this.id)
             midtenBilde.setAttribute("class", this.className)
-            
+
             sjekkOmPCkortKanLeggesPaa()
         }
     }
@@ -163,60 +167,118 @@
     knappEl = document.querySelector("#knapp")
     knappEl.addEventListener("click", trekkEkstraSpillerkort)
 
+
     let PCkortSomKanSpilles = []
 
+    let trekkEkstraPCkort = async () => {
+
+        let data = await fetch('https://deckofcardsapi.com/api/deck/new/draw/')
+        let json = await data.json()
+        let kort = json.cards
+
+        if (!kort_koder.includes(kort[0].code)) {
+            kort_koder.push(kort[0].code)
+            pcKort.push(kort[0])
+            let nyttPCBilde = document.createElement("img")
+            nyttPCBilde.src = "/Users/sofiyaborshch/Documents/GitHub/spill/bilder/kortBakside.jpeg"
+            nyttPCBilde.addEventListener("click", sjekkOmPCkortKanLeggesPaa)
+            nyttPCBilde.setAttribute("id", kort[0].value)
+            nyttPCBilde.setAttribute("class", kort[0].suit)
+            pcKortEl.appendChild(nyttPCBilde)
+        }
+        else {
+            console.log("kortet var duplikat")
+            trekkEkstraPCkort()
+        }
+    }
+
+    function drittFunksjon(){
+        sjekkOmPCkortKanLeggesPaa()
+    }
+
     function sjekkOmPCkortKanLeggesPaa() {
-        console.log("pc_legge_på start")
-        for (let j = 0; j < pcKort.length; j++) {
-            if (pcKort[j].value == midtenBilde.id) {
-                PCkortSomKanSpilles.push(pcKort[j])
+        console.log("")
+        console.log(pcKort)
+        console.log("")
+        for (let k = 0; k < pcKort.length; k++) {
+            if (pcKort[k].value == midtenBilde.id) {
+                PCkortSomKanSpilles.push(pcKort[k])
 
             }
 
-            else if (pcKort[j].suit == midtenBilde.className) { //className og ikke class fordi class er bare "suit", mens classname er nøkkelen, f.eks "Diamonds"
-                PCkortSomKanSpilles.push(pcKort[j])
+            else if (pcKort[k].suit == midtenBilde.className) { //className og ikke class fordi class er bare "suit", mens classname er nøkkelen, f.eks "Diamonds"
+                PCkortSomKanSpilles.push(pcKort[k])
 
             }
 
-            else if (pcKort[j].value == 8) {
-                PCkortSomKanSpilles.push(pcKort[j])
-
-                
+            else if (pcKort[k].value == 8) {
+                PCkortSomKanSpilles.push(pcKort[k])
             }
         }
         console.log("kortene pc-en kan legge på er: " + PCkortSomKanSpilles)
+        qwerty = 0
+        setTimeout( async () => {
 
-        setTimeout(() => {
-    let kortetPCvelger = Math.floor(Math.random() * PCkortSomKanSpilles.length);
-    let valgtKort = PCkortSomKanSpilles[kortetPCvelger];
+            while (PCkortSomKanSpilles.length == 0) {
+                qwerty += 1
+                console.log("while-loop. PC skal trekke kort til den kan legge på");
+                if(qwerty == 100){break}
+                await trekkEkstraPCkort()
+                await sjekkOmPCkortKanLeggesPaa()
+                console.log(pcKort)
 
-    let pcSpiltKort = document.createElement("img");
-    pcSpiltKort.src = valgtKort.image;
-    pcSpiltKort.setAttribute("id", valgtKort.value);
-    pcSpiltKort.setAttribute("class", valgtKort.suit);
 
-    midtenKortEl.innerHTML = "";
-    midtenKortEl.appendChild(pcSpiltKort);
+                
+                //sjekkKanLeggesPaa()
+                //return
+            }
+            //console.log(pcKort)
 
-    midtenBilde.setAttribute("id", valgtKort.value);
-    midtenBilde.setAttribute("class", valgtKort.suit);
 
-    console.log("PC har lagt på kort:", valgtKort);
-}, 1000); // 1000 ms = 1 sekund forsinkelse
+
+            let kortetPCvelger = Math.floor(Math.random() * PCkortSomKanSpilles.length);
+            console.log("kortetPCvelger: " + kortetPCvelger)
+            let valgtKort = PCkortSomKanSpilles[kortetPCvelger];
+            console.log("valgt kort er: " + valgtKort)
+
+            let pcSpiltKort = document.createElement("img");
+            console.log()
+            pcSpiltKort.src = valgtKort.image;
+            pcSpiltKort.setAttribute("id", valgtKort.value);
+            pcSpiltKort.setAttribute("class", valgtKort.suit);
+        
+
+            midtenKortEl.innerHTML = "";
+            midtenKortEl.appendChild(pcSpiltKort);
+
+            midtenBilde.setAttribute("id", valgtKort.value);
+            midtenBilde.setAttribute("class", valgtKort.suit);
+
+            let index = pcKort.indexOf(valgtKort);
+            if (index !== -1) {
+                pcKort.splice(index, 1); // Fjern kortet fra pcKort-listen
+            }
+            let kortElement = document.getElementById(valgtKort.value); // Finn kortets HTML-element
+            if (kortElement) {
+                pcKortEl.removeChild(kortElement); // Fjern det fra HTML
+            }
+
+
+
+            PCkortSomKanSpilles = []
+
+            console.log("PC har lagt på kort:", valgtKort);
+
+
+
+        }, 1000); // 1000 ms = 1 sekund forsinkelse
 
 
         console.log("pc_legg_på slutt")
 
+
+
     }
-
-    
-
-    /* if (erSpillerAktiv === false) {
-         setTimeout(() => {
-             pcenSpiller();
-         }, 1000);
-         console.log("spiller aktivitet: ", erSpillerAktiv)
-     }*/
 
     console.log("kort kodene er: ", kort_koder)
     console.log("dine kort er: ", dineKort)
