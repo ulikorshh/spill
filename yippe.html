@@ -241,10 +241,17 @@
             midtenBilde.setAttribute("id", valgtKort.value);
             midtenBilde.setAttribute("class", valgtKort.suit);
 
+            let index_koder = kort_koder.indexOf(valgtKort) //fjerner kort som spilles fra koder listen. Dette forsikrer at det ikke går tomt for kort å trekke (siden kort som holdes av enten pc eller spilleren ikke kan trekkes, da de allerede er trukket.)
+            if (index_koder !== -1) {
+                kort_koder.splice(index_koder, 1); // Fjern kortet fra pcKort-listen
+            }
+
+
             let index = pcKort.indexOf(valgtKort);
             if (index !== -1) {
                 pcKort.splice(index, 1); // Fjern kortet fra pcKort-listen
             }
+
             let kortElement = document.getElementById(valgtKort.value); // Finn kortets HTML-element
             if (kortElement) {
                 pcKortEl.removeChild(kortElement); // Fjern det fra HTML
@@ -259,11 +266,13 @@
                 console.log("pcen har vunnet")
                 let PCvant = document.createElement("img")
                 PCvant.src = "../spill/bilder/kortBakside.jpeg"
+                hvemVantEl.appendChild(PCvant)
             }
-            else if(dineKort.length==0){
-                console.log("pcen har vunnet jippi")
+            else if (dineKort.length == 0) {
+                console.log("du har vunnet jippi")
                 let SPILLERvant = document.createElement("img")
-               SPILLERvant.src = "../spill/bilder/kortBakside.jpeg"
+                SPILLERvant.src = "../spill/bilder/kortBakside.jpeg"
+                hvemVantEl.appendChild(SPILLERvant)
             }
 
 
