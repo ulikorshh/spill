@@ -192,7 +192,7 @@
         }
     }
 
-    function drittFunksjon(){
+    function drittFunksjon() {
         sjekkOmPCkortKanLeggesPaa()
     }
 
@@ -215,8 +215,9 @@
                 PCkortSomKanSpilles.push(pcKort[k])
             }
         }
-        console.log("kortene pc-en kan legge på er: " + PCkortSomKanSpilles)
-        qwerty = 0
+        console.log("kortene pc-en kan legge på er: ", PCkortSomKanSpilles)
+
+        /*qwerty = 0
         setTimeout( async () => {
 
             while (PCkortSomKanSpilles.length == 0) {
@@ -231,22 +232,35 @@
                 
                 //sjekkKanLeggesPaa()
                 //return
+            }*/
+
+        setTimeout(async () => {
+            let forsøk = 0; // Teller for hvor mange ganger PC prøver å trekke kort
+            while (PCkortSomKanSpilles.length == 0 && forsøk < 100) {
+                forsøk += 1;
+                console.log("PC trekker kort forsøk nr: ", forsøk);
+                await trekkEkstraPCkort(); // Trekker nytt kort
+                PCkortSomKanSpilles = []; 
+                for (let k = 0; k < pcKort.length; k++) { // Sjekker på nytt
+                    if (pcKort[k].value == midtenBilde.id || pcKort[k].suit == midtenBilde.className || pcKort[k].value == 8) {
+                        PCkortSomKanSpilles.push(pcKort[k]);
+                    }
+                }
             }
             //console.log(pcKort)
-
 
 
             let kortetPCvelger = Math.floor(Math.random() * PCkortSomKanSpilles.length);
             console.log("kortetPCvelger: " + kortetPCvelger)
             let valgtKort = PCkortSomKanSpilles[kortetPCvelger];
-            console.log("valgt kort er: " + valgtKort)
+            console.log("valgt kort er: ", valgtKort)
 
             let pcSpiltKort = document.createElement("img");
             console.log()
             pcSpiltKort.src = valgtKort.image;
             pcSpiltKort.setAttribute("id", valgtKort.value);
             pcSpiltKort.setAttribute("class", valgtKort.suit);
-        
+
 
             midtenKortEl.innerHTML = "";
             midtenKortEl.appendChild(pcSpiltKort);
