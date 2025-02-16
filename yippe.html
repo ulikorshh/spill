@@ -1,25 +1,72 @@
 <html>
-
-<link rel="stylesheet" href="../spill/spillcss.css">
-
 <div id="selveSpillet">
     <div id="pcKort"></div>
     <div id="midtenAvSkjermen">
         <div id="midtenKort"></div>
-        <div id="kortstokk"> <img src="../spill/bilder/kortBakside.jpeg" alt=""> </div>
+        <div id="kortstokk"> <img src="/Users/sofiyaborshch/Documents/GitHub/spill/bilder/kortBakside.jpeg" alt=""> </div>
+        <div id="hvemVant"></div>
     </div>
     <div id="dineKort"></div>
 
     <div id="knapp">trekk kort</div>
 </div>
 
+
+
 </html>
+
+<style>
+    #selveSpillet {
+        width: 1vw;
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+    }
+
+
+    #dineKort {
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+    }
+    #dineKort > img{
+        width: 120px;
+        height: 140px;
+    }
+
+    #midtenAvSkjermen{
+        display: flex;
+        flex-direction: row;
+        gap: 50px;
+    }
+    #kortstokk>img{
+        width: 120px;
+        height: 140px;
+    }
+    #midtenKort>img{
+        width: 120px;
+        height: 140px;
+    }
+
+
+    #pcKort {
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+    }
+    #pcKort>img {
+        width: 80px;
+        height: 100px;
+    }
+
+</style>
+
 <script>
     selveSpilletEl = document.querySelector("#selveSpillet")
     pcKortEl = document.querySelector("#pcKort")
     midtenKortEl = document.querySelector("#midtenKort")
     dineKortEl = document.querySelector("#dineKort")
-
+    hvemVantEl = document.querySelector("#hvemVant")
 
     let midtenBilde = ""
     let antall = 11
@@ -69,7 +116,7 @@
                 pcKort.push(kort[0])
                 //console.log(kort[0].value)
                 let nyttPCbilde = document.createElement("img")
-                nyttPCbilde.src = "../spill/bilder/kortBakside.jpeg"
+                nyttPCbilde.src = "/Users/sofiyaborshch/Documents/GitHub/spill/bilder/kortBakside.jpeg"
                 nyttPCbilde.setAttribute("id", kort[0].value)
                 nyttPCbilde.setAttribute("class", kort[0].suit)
 
@@ -165,7 +212,7 @@
             kort_koder.push(kort[0].code)
             pcKort.push(kort[0])
             let nyttPCBilde = document.createElement("img")
-            nyttPCBilde.src = "../spill/bilder/kortBakside.jpeg"
+            nyttPCBilde.src = "/Users/sofiyaborshch/Documents/GitHub/spill/bilder/kortBakside.jpeg"
             nyttPCBilde.addEventListener("click", sjekkOmPCkortKanLeggesPaa)
             nyttPCBilde.setAttribute("id", kort[0].value)
             nyttPCBilde.setAttribute("class", kort[0].suit)
@@ -253,9 +300,13 @@
             //sjekker om spiller eller pc har vunnet
             if (pcKort.length == 0) {
                 console.log("pcen har vunnet")
+                let PCvant = document.createElement("img")
+                PCvant.src = "/Users/sofiyaborshch/Documents/GitHub/spill/bilder/kortBakside.jpeg"
             }
             else if(dineKort.length==0){
-                console.log("pcen har vunnet")
+                console.log("pcen har vunnet jippi")
+                let SPILLERvant = document.createElement("img")
+               SPILLERvant.src = "/Users/sofiyaborshch/Documents/GitHub/spill/bilder/kortBakside.jpeg"
             }
 
 
