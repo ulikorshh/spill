@@ -1,4 +1,7 @@
 <html>
+
+<link rel="stylesheet" href="../spill/spillcss.css">
+
 <div id="selveSpillet">
     <div id="pcKort"></div>
     <div id="midtenAvSkjermen">
@@ -14,6 +17,7 @@
 
 </html>
 
+<<<<<<< Updated upstream
 <style>
     #selveSpillet {
         width: 1vw;
@@ -60,6 +64,8 @@
 
 </style>
 
+=======
+>>>>>>> Stashed changes
 <script>
     selveSpilletEl = document.querySelector("#selveSpillet")
     pcKortEl = document.querySelector("#pcKort")
@@ -115,7 +121,7 @@
                 pcKort.push(kort[0])
                 //console.log(kort[0].value)
                 let nyttPCbilde = document.createElement("img")
-                nyttPCbilde.src = "/Users/sofiyaborshch/Documents/GitHub/spill/bilder/kortBakside.jpeg"
+                nyttPCbilde.src = "../spill/bilder/kortBakside.jpeg"
                 nyttPCbilde.setAttribute("id", kort[0].value)
                 nyttPCbilde.setAttribute("class", kort[0].suit)
 

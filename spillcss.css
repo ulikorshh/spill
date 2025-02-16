@@ -1,0 +1,19 @@
+#selveSpillet {
+    width: 1vw;
+}
+
+#dineKort {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+#pcKort {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+#pcKort>img {
+    width: 50px;
+}
