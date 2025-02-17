@@ -148,19 +148,32 @@
         }
     }
 
+    let erDetForMangeSpillerKort = false
+
     let trekkEkstraSpillerkort = async () => {
 
         let data = await fetch('https://deckofcardsapi.com/api/deck/new/draw/')
         let json = await data.json()
         let kort = json.cards
 
+        let forMangeSpillerKort = document.createElement("p")
+
+        if(dineKort.length > 7) {
+            erDetForMangeSpillerKort = true
+        }
+
         if (!kort_koder.includes(kort[0].code)) {
             //lar ikke spiller ha mer enn 8 kort 
-            if (dineKort.length > 7) {
-                let forMangeSpillerKort = document.createElement("p")
+            if(erDetForMangeSpillerKort ==true){
                 forMangeSpillerKort.innerHTML = "du kan ikke trekke flere kort! vent til neste runde"
+                hvemVantEl.appendChild(forMangeSpillerKort)
+                erDetForMangeSpillerKort = false
+
+                //hvordan nå fjerne denne meldingen??
             }
-            else {
+            else if(erDetForMangeSpillerKort==false){
+                forMangeSpillerKort.innerHTML = ""
+                hvemVantEl.appendChild(forMangeSpillerKort)
                 kort_koder.push(kort[0].code)
                 dineKort.push(kort[0])
                 let nyttSpillerBilde = document.createElement("img")
