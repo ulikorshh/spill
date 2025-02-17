@@ -104,6 +104,13 @@
             midtenBilde.setAttribute("id", this.id)
             midtenBilde.setAttribute("class", this.className)
 
+            let index = dineKort.findIndex(k => k.value == this.id && k.suit == this.className);
+            if (index !== -1) {
+                dineKort.splice(index, 1); // Fjern kortet fra arrayet
+            }
+
+
+
             sjekkOmPCkortKanLeggesPaa()
         }
 
@@ -114,6 +121,12 @@
             midtenBilde.setAttribute("id", this.id)
             midtenBilde.setAttribute("class", this.className)
 
+            let index = dineKort.findIndex(k => k.value == this.id && k.suit == this.className);
+            if (index !== -1) {
+                dineKort.splice(index, 1); // Fjern kortet fra arrayet
+            }
+
+
             sjekkOmPCkortKanLeggesPaa()
         }
 
@@ -123,6 +136,13 @@
             midtenKortEl.appendChild(this)
             midtenBilde.setAttribute("id", this.id)
             midtenBilde.setAttribute("class", this.className)
+
+            let index = dineKort.findIndex(k => k.value == this.id && k.suit == this.className);
+            if (index !== -1) {
+                dineKort.splice(index, 1); // Fjern kortet fra arrayet
+            }
+
+
 
             sjekkOmPCkortKanLeggesPaa()
         }
@@ -135,14 +155,22 @@
         let kort = json.cards
 
         if (!kort_koder.includes(kort[0].code)) {
-            kort_koder.push(kort[0].code)
-            dineKort.push(kort[0])
-            let nyttSpillerBilde = document.createElement("img")
-            nyttSpillerBilde.src = (kort[0].image)
-            nyttSpillerBilde.addEventListener("click", sjekkKanLeggesPaa)
-            nyttSpillerBilde.setAttribute("id", kort[0].value)
-            nyttSpillerBilde.setAttribute("class", kort[0].suit)
-            dineKortEl.appendChild(nyttSpillerBilde)
+            //lar ikke spiller ha mer enn 8 kort 
+            if (dineKort.length > 7) {
+                let forMangeSpillerKort = document.createElement("p")
+                forMangeSpillerKort.innerHTML = "du kan ikke trekke flere kort! vent til neste runde"
+            }
+            else {
+                kort_koder.push(kort[0].code)
+                dineKort.push(kort[0])
+                let nyttSpillerBilde = document.createElement("img")
+                nyttSpillerBilde.src = (kort[0].image)
+                nyttSpillerBilde.addEventListener("click", sjekkKanLeggesPaa)
+                nyttSpillerBilde.setAttribute("id", kort[0].value)
+                nyttSpillerBilde.setAttribute("class", kort[0].suit)
+                dineKortEl.appendChild(nyttSpillerBilde)
+            }
+
         }
         else {
             console.log("kortet var duplikat")
@@ -154,7 +182,7 @@
     //knappEl.addEventListener("click", trekkEkstraSpillerkort)
 
     kortstokkEl = document.querySelector("#kortstokk")
-    kortstokkEl.addEventListener("click",trekkEkstraSpillerkort)
+    kortstokkEl.addEventListener("click", trekkEkstraSpillerkort)
 
 
     let PCkortSomKanSpilles = []
@@ -186,9 +214,9 @@
     }
 
     function sjekkOmPCkortKanLeggesPaa() {
-        console.log("")
-        console.log(pcKort)
-        console.log("")
+        //console.log("")
+        //console.log(pcKort)
+        //console.log("")
         for (let k = 0; k < pcKort.length; k++) {
             if (pcKort[k].value == midtenBilde.id) {
                 PCkortSomKanSpilles.push(pcKort[k])
@@ -212,7 +240,7 @@
             let forsøk = 0; // Teller for hvor mange ganger PC prøver å trekke kort
             while (PCkortSomKanSpilles.length == 0 && forsøk < 100) {
                 forsøk += 1;
-                console.log("PC trekker kort forsøk nr: ", forsøk);
+                //console.log("PC trekker kort forsøk nr: ", forsøk);
                 await trekkEkstraPCkort(); // Trekker nytt kort
                 PCkortSomKanSpilles = [];
                 for (let k = 0; k < pcKort.length; k++) { // Sjekker på nytt
@@ -224,12 +252,12 @@
 
 
             let kortetPCvelger = Math.floor(Math.random() * PCkortSomKanSpilles.length);
-            console.log("kortetPCvelger: " + kortetPCvelger)
+            //console.log("kortetPCvelger: " + kortetPCvelger)
             let valgtKort = PCkortSomKanSpilles[kortetPCvelger];
-            console.log("valgt kort er: ", valgtKort)
+            //console.log("valgt kort er: ", valgtKort)
 
             let pcSpiltKort = document.createElement("img");
-            console.log()
+            //console.log()
             pcSpiltKort.src = valgtKort.image;
             pcSpiltKort.setAttribute("id", valgtKort.value);
             pcSpiltKort.setAttribute("class", valgtKort.suit);
@@ -241,7 +269,7 @@
             midtenBilde.setAttribute("id", valgtKort.value);
             midtenBilde.setAttribute("class", valgtKort.suit);
 
-            let index_koder = kort_koder.indexOf(valgtKort) //fjerner kort som spilles fra koder listen. Dette forsikrer at det ikke går tomt for kort å trekke (siden kort som holdes av enten pc eller spilleren ikke kan trekkes, da de allerede er trukket.)
+            let index_koder = kort_koder.indexOf(valgtKort.code) //fjerner kort som spilles fra koder listen. Dette forsikrer at det ikke går tomt for kort å trekke (siden kort som holdes av enten pc eller spilleren ikke kan trekkes, da de allerede er trukket.)
             if (index_koder !== -1) {
                 kort_koder.splice(index_koder, 1); // Fjern kortet fra pcKort-listen
             }
