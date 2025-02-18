@@ -1,0 +1,76 @@
+<meta charset="UTF-8">
+<body>
+<div id="tittel">
+    <h1>Vri-åtter!</h1>
+</div>
+<div id="regelboks">
+
+</div>
+<div id="regelknappboks">
+
+</div>
+<div id="startknapp">
+
+</div>
+</body>
+<style>
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-image: url();
+    }
+
+    body > div {
+        padding-bottom: 5px;
+    }
+
+    button {
+        width: 6vw auto;
+        height: 5vh auto;
+    }
+    #startknapp > button {
+        width: 10vw auto;
+        height: 5vh auto;
+        font-size: 20px;
+    }
+
+</style>
+<script>
+    let RegelboksEl=document.querySelector("#regelboks")
+    let RegelknappboksEl=document.querySelector("#regelknappboks")
+    let startknappboksEl=document.querySelector("#startknapp")
+
+    let regelknappEl=document.createElement("button")
+    let fjernregelknappEl=document.createElement("button")
+
+    regelknappEl.innerHTML="Vis regler"
+    fjernregelknappEl.innerHTML="lukk"
+
+    RegelknappboksEl.appendChild(regelknappEl)
+
+    regelknappEl.addEventListener("click", leggtilregler)
+
+    function leggtilregler() {
+        RegelboksEl.innerHTML="hei hvordan går det"
+        RegelknappboksEl.removeChild(regelknappEl)
+        RegelknappboksEl.appendChild(fjernregelknappEl)
+    }
+
+    fjernregelknappEl.addEventListener("click", fjernregler)
+
+    function fjernregler() {
+        RegelboksEl.innerHTML=""
+        RegelknappboksEl.removeChild(fjernregelknappEl)
+        RegelknappboksEl.appendChild(regelknappEl)
+    }
+
+    let startknappEl=document.createElement("button")
+    startknappEl.innerHTML="Start spillet!"
+    startknappEl.addEventListener("click", redirecttilspill)
+    startknappboksEl.appendChild(startknappEl)
+
+    function redirecttilspill() {
+        window.location.replace("yippe.html")
+    }
+</script>
