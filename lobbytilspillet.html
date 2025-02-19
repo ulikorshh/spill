@@ -1,27 +1,51 @@
-<meta charset="UTF-8">
+<head>
+    <meta charset="UTF-8">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Pixelify+Sans:wght@400..700&display=swap"
+        rel="stylesheet">
+</head>
+
 <body>
-<div id="tittel">
+    <audio src="lobbymusic1.mp3" auotplay loop id="musikk"></audio>
     <h1>Vri-åtter!</h1>
-</div>
-<div id="regelboks">
+    <div id="Hoved">
+        <div id="creditboks">
 
-</div>
-<div id="regelknappboks">
+        </div>
+        <div id="hovedboks">
+            <div id="regelboks">
 
-</div>
-<div id="startknapp">
+            </div>
+            <div id="regelknappboks">
 
-</div>
+            </div>
+            <div id="creditknappboks">
+
+            </div>
+            <div id="startknapp">
+
+            </div>
+        </div>
+    </div>
+    <div id="musikkboks">
+
+    </div>
 </body>
 <style>
-    body {
+    #Hoved {
         display: flex;
-        flex-direction: column;
-        align-items: center;
+        flex-direction: row;
+        justify-content: center;
         background-image: url();
     }
 
-    body > div {
+    #hovedboks {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #hovedboks>div {
         padding-bottom: 5px;
     }
 
@@ -29,30 +53,60 @@
         width: 6vw auto;
         height: 5vh auto;
     }
-    #startknapp > button {
+
+    #startknapp>button {
         width: 10vw auto;
         height: 5vh auto;
         font-size: 20px;
     }
 
+    h1,
+    button,
+    #creditboks,
+    #regelboks {
+        font-family: "Pixelify Sans", serif;
+        font-optical-sizing: auto;
+    }
+
+    h1 {
+        justify-self: center;
+        font-size: 50px;
+
+    }
+
+    #musikkboks {
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+    }
 </style>
 <script>
-    let RegelboksEl=document.querySelector("#regelboks")
-    let RegelknappboksEl=document.querySelector("#regelknappboks")
-    let startknappboksEl=document.querySelector("#startknapp")
+    let RegelboksEl = document.querySelector("#regelboks")
+    let RegelknappboksEl = document.querySelector("#regelknappboks")
+    let startknappboksEl = document.querySelector("#startknapp")
+    let creditboksEl = document.querySelector("#creditboks")
+    let creditknappboksEl = document.querySelector("#creditknappboks")
 
-    let regelknappEl=document.createElement("button")
-    let fjernregelknappEl=document.createElement("button")
 
-    regelknappEl.innerHTML="Vis regler"
-    fjernregelknappEl.innerHTML="lukk"
+    let regelknappEl = document.createElement("button")
+    let fjernregelknappEl = document.createElement("button")
+
+    regelknappEl.innerHTML = "Vis regler"
+    fjernregelknappEl.innerHTML = "lukk regler"
 
     RegelknappboksEl.appendChild(regelknappEl)
 
-    regelknappEl.addEventListener("click", leggtilregler)
+    regelknappEl.addEventListener("click", visregler)
 
-    function leggtilregler() {
-        RegelboksEl.innerHTML="hei hvordan går det"
+    function visregler() {
+        RegelboksEl.innerHTML += "Reglene er lette, hver side starter med fem kort og vinneren er hvem som først har<br>"
+        RegelboksEl.innerHTML += "ingen kort igjen. Man kan kun plassere kort som har lik tall eller suit, bortsett fra<br>"
+        RegelboksEl.innerHTML += "åtte-kortene, de kan plasseres når som helst. Hvis man ikke har noen kort som kan<br>"
+        RegelboksEl.innerHTML += "plasseres, kan man trekke fra bunken frem til man har åtte kort og prøver å trekke et<br>"
+        RegelboksEl.innerHTML += "til før du mister turen din til motstanderen. Samme regler gjelder for motstanderen.<br>"
+        RegelboksEl.innerHTML += "Lykke til og håper du liker spillet!"
+        RegelboksEl.setAttribute("style", "text-align: center;")
+        RegelboksEl.setAttribute("style", "Font-size: 20px")
         RegelknappboksEl.removeChild(regelknappEl)
         RegelknappboksEl.appendChild(fjernregelknappEl)
     }
@@ -60,17 +114,71 @@
     fjernregelknappEl.addEventListener("click", fjernregler)
 
     function fjernregler() {
-        RegelboksEl.innerHTML=""
+        RegelboksEl.innerHTML = ""
         RegelknappboksEl.removeChild(fjernregelknappEl)
         RegelknappboksEl.appendChild(regelknappEl)
     }
 
-    let startknappEl=document.createElement("button")
-    startknappEl.innerHTML="Start spillet!"
+    let startknappEl = document.createElement("button")
+    startknappEl.innerHTML = "Start spillet!"
     startknappEl.addEventListener("click", redirecttilspill)
     startknappboksEl.appendChild(startknappEl)
 
     function redirecttilspill() {
         window.location.replace("yippe.html")
+    }
+
+    let creditknappEl = document.createElement("button")
+    let fjerncreditknappEl = document.createElement("button")
+    creditknappEl.innerHTML = "Kreditter"
+    fjerncreditknappEl.innerHTML = "Lukk kreditter"
+    creditknappEl.addEventListener("click", viscredits)
+    fjerncreditknappEl.addEventListener("click", fjerncredits)
+    creditknappboksEl.appendChild(creditknappEl)
+
+    function viscredits() {
+        creditboksEl.innerHTML += "<h2>Lead programmer</h2>"
+        creditboksEl.innerHTML += "<p>Sofiya</p>"
+        creditboksEl.innerHTML += "<h2>assistant programmers</h2>"
+        creditboksEl.innerHTML += "<p>Uliana</p>"
+        creditboksEl.innerHTML += "<p>TrickshotArne</p>"
+        creditboksEl.innerHTML += "<h2>game design</h2>"
+        creditboksEl.innerHTML += "<p>Uliana</p>"
+        creditboksEl.innerHTML += "<h2>lobby design</h2>"
+        creditboksEl.innerHTML += "<p>TrickshotArne</p>"
+        creditboksEl.setAttribute("style", "Padding-right: 50px;")
+        creditknappboksEl.removeChild(creditknappEl)
+        creditknappboksEl.appendChild(fjerncreditknappEl)
+    }
+
+    function fjerncredits() {
+        creditboksEl.innerHTML = ""
+        creditboksEl.removeAttribute("style")
+        creditknappboksEl.removeChild(fjerncreditknappEl)
+        creditknappboksEl.appendChild(creditknappEl)
+    }
+    let musikkboksEl = document.querySelector("#musikkboks")
+    let musikkEl = document.querySelector("#musikk")
+    let musikknappEl = document.createElement("button")
+    let fjernmusikkknappEl = document.createElement("button")
+
+
+    musikknappEl.innerHTML = "Bakgrunnsmusikk?"
+    musikknappEl.addEventListener("click", musikk)
+    fjernmusikkknappEl.innerHTML = "Fjern bakgrunnsmusikk?"
+    fjernmusikkknappEl.addEventListener("click", fjernmusikk)
+
+    musikkboksEl.appendChild(musikknappEl)
+    function musikk() {
+        musikkEl.play()
+        musikkboksEl.removeChild(musikknappEl)
+        musikkboksEl.appendChild(fjernmusikkknappEl)
+    }
+
+
+    function fjernmusikk() {
+        musikkEl.pause()
+        musikkboksEl.removeChild(fjernmusikkknappEl)
+        musikkboksEl.appendChild(musikknappEl)
     }
 </script>
