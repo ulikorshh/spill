@@ -7,6 +7,8 @@
     <div id="midtenAvSkjermen">
         <div id="midtenKort"></div>
         <div id="kortstokk"> <img src="../spill/bilder/kortBakside.jpeg" alt=""> </div>
+        <p id="forMangeSpillerKort"></p>
+        <button id="laPCspilleKnapp">skip runde - pc sin tur!</button>
         <div id="hvemVant"></div>
     </div>
     <div id="dineKort"></div>
@@ -148,38 +150,30 @@
         }
     }
 
-    //let erDetForMangeSpillerKort = false
+    let laPCspilleKnapp = document.getElementById("laPCspilleKnapp")
+    laPCspilleKnapp.addEventListener("click",sjekkOmPCkortKanLeggesPaa)
+
+    let forMangeSpillerKort = document.getElementById("forMangeSpillerKort")
 
     let trekkEkstraSpillerkort = async () => {
+        forMangeSpillerKort.innerHTML = ""
+
+        if(dineKort.length==8){
+             forMangeSpillerKort.innerHTML = "max 8 kort! dobbeltsjekk om du har noe du kan legge på, elleer trykk på knapp som lar pc-en spille"
+             return
+        }
 
         if(dineKort.length > 7) {
-            
             return
 
         }
+        
 
         let data = await fetch('https://deckofcardsapi.com/api/deck/new/draw/')
         let json = await data.json()
         let kort = json.cards
 
-        let forMangeSpillerKort = document.createElement("p")
-
-        
-
         if (!kort_koder.includes(kort[0].code)) {
-            //lar ikke spiller ha mer enn 8 kort 
-            /*if(erDetForMangeSpillerKort ==true){
-                forMangeSpillerKort.innerHTML = "du kan ikke trekke flere kort! vent til neste runde"
-                hvemVantEl.appendChild(forMangeSpillerKort)
-                erDetForMangeSpillerKort = false
-
-                //hvordan nå fjerne denne meldingen??
-            }*/
-
-            // if(erDetForMangeSpillerKort==false)
-            //else {
-                //forMangeSpillerKort.innerHTML = ""
-                //hvemVantEl.appendChild(forMangeSpillerKort)
                 kort_koder.push(kort[0].code)
                 dineKort.push(kort[0])
                 let nyttSpillerBilde = document.createElement("img")
@@ -196,9 +190,8 @@
             trekkEkstraSpillerkort()
         }
     }
+        
 
-    //knappEl = document.querySelector("#knapp")
-    //knappEl.addEventListener("click", trekkEkstraSpillerkort)
 
     kortstokkEl = document.querySelector("#kortstokk")
     kortstokkEl.addEventListener("click", trekkEkstraSpillerkort)
@@ -207,6 +200,14 @@
     let PCkortSomKanSpilles = []
 
     let trekkEkstraPCkort = async () => {
+
+        if(pcKort.length==8){
+            if(PCkortSomKanSpilles.length==0){
+                forMangeSpillerKort.innerHTML = "pc-en har ikke noe å legge på! din tur : )"
+                return
+            }
+            
+        }
 
         let data = await fetch('https://deckofcardsapi.com/api/deck/new/draw/')
         let json = await data.json()
@@ -233,9 +234,7 @@
     }
 
     function sjekkOmPCkortKanLeggesPaa() {
-        //console.log("")
-        //console.log(pcKort)
-        //console.log("")
+
         for (let k = 0; k < pcKort.length; k++) {
             if (pcKort[k].value == midtenBilde.id) {
                 PCkortSomKanSpilles.push(pcKort[k])
@@ -253,6 +252,7 @@
         }
         console.log("kortene pc-en kan legge på er: ", PCkortSomKanSpilles)
 
+        
 
         setTimeout(async () => { //async, venter på at trekkEkstaPCKort skal bli ferdig før den kjører funksjonen sjekkOmPCkortKanLeggesPaa videre
 
@@ -271,12 +271,9 @@
 
 
             let kortetPCvelger = Math.floor(Math.random() * PCkortSomKanSpilles.length);
-            //console.log("kortetPCvelger: " + kortetPCvelger)
             let valgtKort = PCkortSomKanSpilles[kortetPCvelger];
-            //console.log("valgt kort er: ", valgtKort)
 
             let pcSpiltKort = document.createElement("img");
-            //console.log()
             pcSpiltKort.src = valgtKort.image;
             pcSpiltKort.setAttribute("id", valgtKort.value);
             pcSpiltKort.setAttribute("class", valgtKort.suit);
