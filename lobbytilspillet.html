@@ -79,6 +79,10 @@
         bottom: 10px;
         right: 10px;
     }
+    #regelboks  {
+        text-align: center;
+        font-size: 20px;
+    }
 </style>
 <script>
     let RegelboksEl = document.querySelector("#regelboks")
@@ -102,11 +106,9 @@
         RegelboksEl.innerHTML += "Reglene er lette, hver side starter med fem kort og vinneren er hvem som først har<br>"
         RegelboksEl.innerHTML += "ingen kort igjen. Man kan kun plassere kort som har lik tall eller suit, bortsett fra<br>"
         RegelboksEl.innerHTML += "åtte-kortene, de kan plasseres når som helst. Hvis man ikke har noen kort som kan<br>"
-        RegelboksEl.innerHTML += "plasseres, kan man trekke fra bunken frem til man har åtte kort og prøver å trekke et<br>"
-        RegelboksEl.innerHTML += "til før du mister turen din til motstanderen. Samme regler gjelder for motstanderen.<br>"
+        RegelboksEl.innerHTML += "plasseres, kan man trekke fra bunken frem til man har åtte kort. Hvis ingen av de kortene<br>"
+        RegelboksEl.innerHTML += "kan plasseres, må du gi turen din til motstanderen. Samme regler gjelder for motstanderen.<br>"
         RegelboksEl.innerHTML += "Lykke til og håper du liker spillet!"
-        RegelboksEl.setAttribute("style", "text-align: center;")
-        RegelboksEl.setAttribute("style", "Font-size: 20px")
         RegelknappboksEl.removeChild(regelknappEl)
         RegelknappboksEl.appendChild(fjernregelknappEl)
     }
@@ -139,13 +141,13 @@
     function viscredits() {
         creditboksEl.innerHTML += "<h2>Lead programmer</h2>"
         creditboksEl.innerHTML += "<p>sofiyaborshch</p>"
-        creditboksEl.innerHTML += "<h2>assistant programmers</h2>"
+        creditboksEl.innerHTML += "<h2>Assistant programmers</h2>"
         creditboksEl.innerHTML += "<p>TrickshotArne</p>"
         creditboksEl.innerHTML += "<p>ulikorshh</p>"
-        creditboksEl.innerHTML += "<h2>game design</h2>"
+        creditboksEl.innerHTML += "<h2>Game design</h2>"
         creditboksEl.innerHTML += "<p>sofiyaborshch</p>"
         creditboksEl.innerHTML += "<p>ulikorshh</p>"
-        creditboksEl.innerHTML += "<h2>lobby design</h2>"
+        creditboksEl.innerHTML += "<h2>Lobby design</h2>"
         creditboksEl.innerHTML += "<p>TrickshotArne</p>"
         creditboksEl.setAttribute("style", "Padding-right: 50px;")
         creditknappboksEl.removeChild(creditknappEl)
