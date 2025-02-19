@@ -1,6 +1,6 @@
 html {
     height: 100vh;
-    background-image: url(../spill/bilder/svartBakgrunn.jpeg);
+    background-image: url(../spill/bilder/spillBakgrunn.jpeg);
     background-size: cover;
     background-position: center;
     display: flex;
