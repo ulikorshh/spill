@@ -1,6 +1,8 @@
-<html>
+<html id="bakgrunn">
 
 <link rel="stylesheet" href="../spill/spillcss.css">
+
+<button id="tilbakeTilLobby">Lobby</button>
 
 <div id="selveSpillet">
     <div id="pcKort"></div>
@@ -19,6 +21,13 @@
 </html>
 
 <script>
+    tilbakeTilLobbyEl = document.getElementById("tilbakeTilLobby")
+    tilbakeTilLobbyEl.addEventListener("click",tilLobby)
+
+    function tilLobby(){
+        window.location.replace("lobbytilspillet.html")
+    }
+
     selveSpilletEl = document.querySelector("#selveSpillet")
     pcKortEl = document.querySelector("#pcKort")
     midtenSkjermEl = document.querySelector("#midtenAvSkjermen")
