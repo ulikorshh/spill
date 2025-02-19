@@ -23,11 +23,11 @@
 <script>
     selveSpilletEl = document.querySelector("#selveSpillet")
     pcKortEl = document.querySelector("#pcKort")
+    midtenSkjermEl = document.querySelector("#midtenAvSkjermen")
     midtenKortEl = document.querySelector("#midtenKort")
     dineKortEl = document.querySelector("#dineKort")
     hvemVantEl = document.querySelector("#hvemVant")
 
-    let midtenBilde = ""
     let antall = 11
     let dineKort = []
     let pcKort = []
@@ -35,7 +35,7 @@
 
     //let erSpillerAktiv = true
 
-    let trekkSpillerkort = async (i) => {
+    let trekkSpillerkort = async(i) => {
 
         let data = await fetch('https://deckofcardsapi.com/api/deck/new/draw/')
         let json = await data.json()
@@ -46,14 +46,14 @@
 
 
             if (i == 10) {
-
-                midtenBilde = document.createElement("img")
+                let midtenBilde = document.createElement("img")
                 midtenBilde.src = (kort[0].image)
                 midtenBilde.setAttribute("id", kort[0].value)
                 midtenBilde.setAttribute("class", kort[0].suit)
 
-
-                midtenKortEl.appendChild(midtenBilde)
+                midtenKortEl.innerHTML = "";
+                midtenKortEl.appendChild(midtenBilde);
+                
             }
 
             else if (i % 2 == 0) {
@@ -151,46 +151,46 @@
     }
 
     let laPCspilleKnapp = document.getElementById("laPCspilleKnapp")
-    laPCspilleKnapp.addEventListener("click",sjekkOmPCkortKanLeggesPaa)
+    laPCspilleKnapp.addEventListener("click", sjekkOmPCkortKanLeggesPaa)
 
     let forMangeSpillerKort = document.getElementById("forMangeSpillerKort")
 
     let trekkEkstraSpillerkort = async () => {
         forMangeSpillerKort.innerHTML = ""
 
-        if(dineKort.length==8){
-             forMangeSpillerKort.innerHTML = "max 8 kort! dobbeltsjekk om du har noe du kan legge på, elleer trykk på knapp som lar pc-en spille"
-             return
+        if (dineKort.length == 8) {
+            forMangeSpillerKort.innerHTML = "max 8 kort! dobbeltsjekk om du har noe du kan legge på, elleer trykk på knapp som lar pc-en spille"
+            return
         }
 
-        if(dineKort.length > 7) {
+        if (dineKort.length > 7) {
             return
 
         }
-        
+
 
         let data = await fetch('https://deckofcardsapi.com/api/deck/new/draw/')
         let json = await data.json()
         let kort = json.cards
 
         if (!kort_koder.includes(kort[0].code)) {
-                kort_koder.push(kort[0].code)
-                dineKort.push(kort[0])
-                let nyttSpillerBilde = document.createElement("img")
-                nyttSpillerBilde.src = (kort[0].image)
-                nyttSpillerBilde.addEventListener("click", sjekkKanLeggesPaa)
-                nyttSpillerBilde.setAttribute("id", kort[0].value)
-                nyttSpillerBilde.setAttribute("class", kort[0].suit)
-                dineKortEl.appendChild(nyttSpillerBilde)
-            }
+            kort_koder.push(kort[0].code)
+            dineKort.push(kort[0])
+            let nyttSpillerBilde = document.createElement("img")
+            nyttSpillerBilde.src = (kort[0].image)
+            nyttSpillerBilde.addEventListener("click", sjekkKanLeggesPaa)
+            nyttSpillerBilde.setAttribute("id", kort[0].value)
+            nyttSpillerBilde.setAttribute("class", kort[0].suit)
+            dineKortEl.appendChild(nyttSpillerBilde)
+        }
 
-        
+
         else {
             console.log("kortet var duplikat")
             trekkEkstraSpillerkort()
         }
     }
-        
+
 
 
     kortstokkEl = document.querySelector("#kortstokk")
@@ -201,12 +201,12 @@
 
     let trekkEkstraPCkort = async () => {
 
-        if(pcKort.length==8){
-            if(PCkortSomKanSpilles.length==0){
+        if (pcKort.length == 8) {
+            if (PCkortSomKanSpilles.length == 0) {
                 forMangeSpillerKort.innerHTML = "pc-en har ikke noe å legge på! din tur : )"
                 return
             }
-            
+
         }
 
         let data = await fetch('https://deckofcardsapi.com/api/deck/new/draw/')
@@ -252,7 +252,7 @@
         }
         console.log("kortene pc-en kan legge på er: ", PCkortSomKanSpilles)
 
-        
+
 
         setTimeout(async () => { //async, venter på at trekkEkstaPCKort skal bli ferdig før den kjører funksjonen sjekkOmPCkortKanLeggesPaa videre
 
