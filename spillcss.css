@@ -7,47 +7,37 @@
     gap: 50px;
 }
 
-#dineKort {
+#midtenAvSkjermen {
+    display: flex;
+    flex-direction: row;
+    justify-content: center; 
+    align-items: center; 
+    gap: 300px;
+    height: 150px;
+}
+
+#midtenKort {
+    width: 107px;
+    height: 175px;
+    display: block;
+    justify-content: center;
+    align-items: center;
+}
+
+#dineKort, #pcKort {
     display: flex;
     flex-direction: row;
     gap: 5px;
 }
 
 #dineKort>img {
-    width: 125px;
-    height: 175px;
-    object-fit: cover;
-
-}
-
-#midtenAvSkjermen {
-    display: flex;
-    flex-direction: row;
-    gap: 500px;
-}
-
-#kortstokk>img {
     width: 107px;
     height: 175px;
-    object-fit: cover;
-
+    object-fit: contain;
 }
 
-#midtenKort>img {
-    width: 125px;
+#kortstokk>img, #midtenKort>img, #pcKort>img {
+    width: 107px;
     height: 175px;
-    object-fit: cover;
-
 }
 
-#pcKort {
-    display: flex;
-    flex-direction: row;
-    gap: 5px;
-}
-
-#pcKort>img {
-    width: 125px;
-    height: 175px;
-    object-fit: cover;
-}
