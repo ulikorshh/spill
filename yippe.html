@@ -2,17 +2,19 @@
 
 <link rel="stylesheet" href="../spill/spillcss.css">
 
+<main>
 <div id="selveSpillet">
     <div id="pcKort"></div>
     <div id="midtenAvSkjermen">
         <div id="midtenKort"></div>
-        <div id="kortstokk"> <img src="../spill/bilder/kortBakside.jpeg" alt=""> </div>
+        <div id="kortstokk"> <img src="../spill/bilder/kortBakside.jpeg" alt="" title="Trekk kort"> </div>
         <p id="forMangeSpillerKort"></p>
-        <button id="laPCspilleKnapp">skip runde - pc sin tur!</button>
+        <button id="laPCspilleKnapp">Skip runde - pc sin tur!</button>
         <div id="hvemVant"></div>
     </div>
     <div id="dineKort"></div>
 </div>
+</main>
 
 
 
@@ -34,7 +36,7 @@
 
     //let erSpillerAktiv = true
 
-    let trekkSpillerkort = async(i) => {
+    let trekkSpillerkort = async (i) => {
 
         let data = await fetch('https://deckofcardsapi.com/api/deck/new/draw/')
         let json = await data.json()
@@ -52,7 +54,7 @@
 
                 midtenKortEl.innerHTML = "";
                 midtenKortEl.appendChild(midtenBilde);
-                
+
             }
 
             else if (i % 2 == 0) {
@@ -110,8 +112,6 @@
                 dineKort.splice(index, 1); // Fjern kortet fra arrayet
             }
 
-
-
             sjekkOmPCkortKanLeggesPaa()
         }
 
@@ -143,8 +143,6 @@
                 dineKort.splice(index, 1); // Fjern kortet fra arrayet
             }
 
-
-
             sjekkOmPCkortKanLeggesPaa()
         }
     }
@@ -158,13 +156,11 @@
         forMangeSpillerKort.innerHTML = ""
 
         if (dineKort.length == 8) {
-            forMangeSpillerKort.innerHTML = "max 8 kort! dobbeltsjekk om du har noe du kan legge på, elleer trykk på knapp som lar pc-en spille"
+            forMangeSpillerKort.innerHTML = "max 8 kort! dobbeltsjekk om du har noe du kan legge på, eller trykk på knapp som lar pc-en spille"
+            setTimeout(() => {
+                forMangeSpillerKort.innerHTML = ""; //Fjerner meldingen etter 3 sekunder
+            }, 6000);
             return
-        }
-
-        if (dineKort.length > 7) {
-            return
-
         }
 
 
