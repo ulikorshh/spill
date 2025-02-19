@@ -6,11 +6,13 @@
 
 #selveSpillet {
     width: 100vw;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 40px;
+    margin-bottom: 1rem;
 }
 
 #dineKort img {
@@ -60,4 +62,13 @@
 
 #laPCspilleKnapp:hover{
     cursor: pointer;
+}
+
+#forMangeSpillerKort{
+    color: antiquewhite;
+}
+
+#tilbakeTilLobby{
+    margin-top: 1rem;
+    margin-left: 1rem;
 }
