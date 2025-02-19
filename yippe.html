@@ -12,8 +12,6 @@
         <div id="hvemVant"></div>
     </div>
     <div id="dineKort"></div>
-
-    <div id="knapp">trekk kort</div>
 </div>
 
 
@@ -28,6 +26,7 @@
     dineKortEl = document.querySelector("#dineKort")
     hvemVantEl = document.querySelector("#hvemVant")
 
+    let midtenBilde = ""
     let antall = 11
     let dineKort = []
     let pcKort = []
@@ -46,7 +45,7 @@
 
 
             if (i == 10) {
-                let midtenBilde = document.createElement("img")
+                midtenBilde = document.createElement("img")
                 midtenBilde.src = (kort[0].image)
                 midtenBilde.setAttribute("id", kort[0].value)
                 midtenBilde.setAttribute("class", kort[0].suit)

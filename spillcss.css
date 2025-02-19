@@ -1,43 +1,53 @@
 #selveSpillet {
-    width: 100vw;      
-    display: flex;    
-    flex-direction: column;    
-    align-items: center; 
-    justify-content: center; 
-    gap: 50px;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+}
+
+#dineKort img {
+    cursor: pointer;
+    transition: transform 0.3s;
+} 
+
+#dineKort img:hover {
+    transform: scale(1.1);
 }
 
 #midtenAvSkjermen {
     display: flex;
     flex-direction: row;
-    justify-content: center; 
-    align-items: center; 
-    gap: 300px;
-    height: 150px;
-}
-
-#midtenKort {
-    width: 107px;
-    height: 175px;
-    display: block;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    position: relative; /* Beholder layouten */
+    height: 200px;
+    gap: 40px;
 }
 
 #dineKort, #pcKort {
     display: flex;
     flex-direction: row;
-    gap: 5px;
+    gap: 10px;
 }
 
-#dineKort>img {
+#midtenKort {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#kortstokk img {
+    cursor: pointer;
+}
+
+#dineKort>img, #midtenKort>img {
     width: 107px;
     height: 175px;
-    object-fit: contain;
 }
 
-#kortstokk>img, #midtenKort>img, #pcKort>img {
+#kortstokk>img, #pcKort>img {
     width: 107px;
     height: 175px;
 }
-
