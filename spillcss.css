@@ -1,5 +1,6 @@
 html {
     height: 100vh;
+    width: 100vw;
     background-image: url(../spill/bilder/spillBakgrunn.jpeg);
     background-size: cover;
     background-position: center;
@@ -81,4 +82,14 @@ button {
 #tilbakeTilLobby{
     margin-top: 1rem;
     margin-left: 1rem;
+}
+
+#spillerVantBilde{
+    height: 30rem;
+    width: 30rem;
+}
+
+#pcVantBilde{
+    height: 30rem;
+    width: 30rem;
 }

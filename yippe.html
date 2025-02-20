@@ -8,6 +8,7 @@
     rel="stylesheet">
 
 <main>
+
 <audio src="spillmusikk1.mp3" auotplay loop id="musikk"></audio>
 <div id="selveSpillet">
     <div id="pcKort"></div>
@@ -322,13 +323,15 @@
             if (pcKort.length == 0) {
                 console.log("Pcen har vunnet")
                 let PCvant = document.createElement("img")
-                PCvant.src = "../spill/bilder/kortBakside.jpeg"
+                PCvant.src = "../spill/bilder/pcVant.png"
+                PCvant.id = "pcVantBilde"
                 hvemVantEl.appendChild(PCvant)
             }
             else if (dineKort.length == 0) {
                 console.log("Du har vunnet Yippe")
                 let SPILLERvant = document.createElement("img")
-                SPILLERvant.src = "../spill/bilder/kortBakside.jpeg"
+                SPILLERvant.src = "../spill/bilder/duVant.png"
+                SPILLERvant.id = "spillerVantBilde"
                 hvemVantEl.appendChild(SPILLERvant)
             }
 
