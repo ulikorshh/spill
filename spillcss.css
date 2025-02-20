@@ -62,6 +62,18 @@ html {
     height: 175px;
 }
 
-#laPCspilleKnapp {
+button {
     font-family: "Pixelify Sans", serif;
+}
+
+#musikkboks {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+}
+
+#forMangeSpillerKort {
+    color: white;
+    font-family: "Pixelify Sans", serif;
+    text-align: center;
 }

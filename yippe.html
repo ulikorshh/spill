@@ -3,18 +3,22 @@
 <link rel="stylesheet" href="../spill/spillcss.css">
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Pixelify+Sans:wght@400..700&display=swap"
     rel="stylesheet">
-    
+
 <main>
+<audio src="spillmusikk1.mp3" auotplay loop id="musikk"></audio>
 <div id="selveSpillet">
     <div id="pcKort"></div>
     <div id="midtenAvSkjermen">
         <div id="midtenKort"></div>
         <div id="kortstokk"> <img src="../spill/bilder/kortBakside.jpeg" alt="" title="Trekk kort"> </div>
-        <p id="forMangeSpillerKort"></p>
+        <div id="forMangeSpillerKort"></div>
         <button id="laPCspilleKnapp">Skip runde - pc sin tur!</button>
         <div id="hvemVant"></div>
     </div>
     <div id="dineKort"></div>
+</div>
+<div id="musikkboks">
+    
 </div>
 </main>
 
@@ -158,7 +162,8 @@
         forMangeSpillerKort.innerHTML = ""
 
         if (dineKort.length == 8) {
-            forMangeSpillerKort.innerHTML = "max 8 kort! dobbeltsjekk om du har noe du kan legge på, eller trykk på knapp som lar pc-en spille"
+            forMangeSpillerKort.innerHTML += "Max 8 kort! Dobbeltsjekk om du har noe du kan legge <br>"
+            forMangeSpillerKort.innerHTML += "på, eller trykk på knappen som lar pc-en spille."
             setTimeout(() => {
                 forMangeSpillerKort.innerHTML = ""; //Fjerner meldingen etter 3 sekunder
             }, 6000);
@@ -200,7 +205,7 @@
 
         if (pcKort.length == 8) {
             if (PCkortSomKanSpilles.length == 0) {
-                forMangeSpillerKort.innerHTML = "pc-en har ikke noe å legge på! din tur : )"
+                forMangeSpillerKort.innerHTML = "Pc-en har ikke noe å legge på! Din tur : )"
                 return
             }
 
@@ -321,6 +326,30 @@
 
     }
 
+    let musikkboksEl = document.querySelector("#musikkboks")
+    let musikkEl = document.querySelector("#musikk")
+    let musikknappEl = document.createElement("button")
+    let fjernmusikkknappEl = document.createElement("button")
+
+
+    musikknappEl.innerHTML = "Bakgrunnsmusikk?"
+    musikknappEl.addEventListener("click", musikk)
+    fjernmusikkknappEl.innerHTML = "Fjern bakgrunnsmusikk?"
+    fjernmusikkknappEl.addEventListener("click", fjernmusikk)
+
+    musikkboksEl.appendChild(musikknappEl)
+    function musikk() {
+        musikkEl.play()
+        musikkboksEl.removeChild(musikknappEl)
+        musikkboksEl.appendChild(fjernmusikkknappEl)
+    }
+
+
+    function fjernmusikk() {
+        musikkEl.pause()
+        musikkboksEl.removeChild(fjernmusikkknappEl)
+        musikkboksEl.appendChild(musikknappEl)
+    }
 
     console.log("kort kodene er: ", kort_koder)
     console.log("dine kort er: ", dineKort)
