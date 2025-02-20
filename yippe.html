@@ -12,8 +12,9 @@
         <div id="midtenKort"></div>
         <div id="kortstokk"> <img src="../spill/bilder/kortBakside.jpeg" alt="" title="Trekk kort"> </div>
         <div id="forMangeSpillerKort"></div>
-        <button id="laPCspilleKnapp">Skip runde - pc sin tur!</button>
         <div id="hvemVant"></div>
+        <button id="laPCspilleKnapp">Skip runde - pc sin tur!</button>
+        
     </div>
     <div id="dineKort"></div>
 </div>
@@ -309,13 +310,13 @@
 
             //sjekker om spiller eller pc har vunnet
             if (pcKort.length == 0) {
-                console.log("pcen har vunnet")
+                console.log("Pcen har vunnet")
                 let PCvant = document.createElement("img")
                 PCvant.src = "../spill/bilder/kortBakside.jpeg"
                 hvemVantEl.appendChild(PCvant)
             }
             else if (dineKort.length == 0) {
-                console.log("du har vunnet jippi")
+                console.log("Du har vunnet Yippe")
                 let SPILLERvant = document.createElement("img")
                 SPILLERvant.src = "../spill/bilder/kortBakside.jpeg"
                 hvemVantEl.appendChild(SPILLERvant)
