@@ -93,3 +93,7 @@ button {
     height: 30rem;
     width: 30rem;
 }
+
+.aatter{
+    border: solid 2px orange;
+}

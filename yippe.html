@@ -84,9 +84,11 @@
                 nyttSpillerBilde.addEventListener("click", sjekkKanLeggesPaa)
                 nyttSpillerBilde.setAttribute("id", kort[0].value)
                 nyttSpillerBilde.setAttribute("class", kort[0].suit)
-                
-
                 dineKortEl.appendChild(nyttSpillerBilde)
+
+                if(nyttSpillerBilde.id==8){
+                    nyttSpillerBilde.className = "aatter"
+                }
             }
             if (i % 2 !== 0) {
                 pcKort.push(kort[0])
