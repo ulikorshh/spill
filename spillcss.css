@@ -97,3 +97,12 @@ button {
 .aatter{
     border: solid 2px orange;
 }
+
+#knapper{
+    display: flex;
+    flex-direction: column;
+}
+
+#knapper > button{
+    margin-bottom: 1rem;
+}

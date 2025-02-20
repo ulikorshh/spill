@@ -12,14 +12,18 @@
 <audio src="spillmusikk1.mp3" auotplay loop id="musikk"></audio>
 <div id="selveSpillet">
     <div id="pcKort"></div>
+
     <div id="midtenAvSkjermen">
         <div id="midtenKort"></div>
         <div id="kortstokk"> <img src="../spill/bilder/kortstokkBilde.jpeg" alt="" title="Trekk kort"> </div>
         <div id="forMangeSpillerKort"></div>
         <div id="hvemVant"></div>
-        <button id="laPCspilleKnapp">Skip runde - pc sin tur!</button>
-        
+        <div id="knapper">
+            <button id="laPCspilleKnapp">Skip runde - pc sin tur!</button>
+            <button id="nyttSpill">Nytt spill</button>
+        </div>
     </div>
+
     <div id="dineKort"></div>
 </div>
 <div id="musikkboks">
@@ -38,6 +42,10 @@
     function tilLobby(){
         window.location.replace("lobbytilspillet.html")
     }
+
+    document.getElementById("nyttSpill").addEventListener("click", function() {
+    location.reload(); // Refresher siden
+});
 
     selveSpilletEl = document.querySelector("#selveSpillet")
     pcKortEl = document.querySelector("#pcKort")
@@ -196,6 +204,10 @@
             nyttSpillerBilde.setAttribute("id", kort[0].value)
             nyttSpillerBilde.setAttribute("class", kort[0].suit)
             dineKortEl.appendChild(nyttSpillerBilde)
+
+            if(nyttSpillerBilde.id==8){
+                    nyttSpillerBilde.className = "aatter"
+                }
         }
 
 
