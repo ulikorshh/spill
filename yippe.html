@@ -1,6 +1,9 @@
 <html>
 
+<button id="tilbakeTilLobby">Lobby!</button>
+
 <link rel="stylesheet" href="../spill/spillcss.css">
+
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Pixelify+Sans:wght@400..700&display=swap"
     rel="stylesheet">
 
@@ -28,6 +31,13 @@
 </html>
 
 <script>
+    tilbakeTilLobbyEl = document.getElementById("tilbakeTilLobby")
+    tilbakeTilLobbyEl.addEventListener("click",tilLobby)
+
+    function tilLobby(){
+        window.location.replace("lobbytilspillet.html")
+    }
+
     selveSpilletEl = document.querySelector("#selveSpillet")
     pcKortEl = document.querySelector("#pcKort")
     midtenSkjermEl = document.querySelector("#midtenAvSkjermen")

@@ -77,3 +77,8 @@ button {
     font-family: "Pixelify Sans", serif;
     text-align: center;
 }
+
+#tilbakeTilLobby{
+    margin-top: 1rem;
+    margin-left: 1rem;
+}
