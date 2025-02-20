@@ -77,22 +77,20 @@
 
             else if (i % 2 == 0) {
                 dineKort.push(kort[0])
-                //console.log("kortet er unikt")
+                
 
                 let nyttSpillerBilde = document.createElement("img")
                 nyttSpillerBilde.src = (kort[0].image)
                 nyttSpillerBilde.addEventListener("click", sjekkKanLeggesPaa)
                 nyttSpillerBilde.setAttribute("id", kort[0].value)
                 nyttSpillerBilde.setAttribute("class", kort[0].suit)
-                //nyttSpillerBilde.setAttribute("class",kort[0].code)
-                //console.log("navnet på kort er: " + nyttSpillerBilde.id)
-                //console.log("suiten på dette kortet er " + kort[0].suit)
+                
 
                 dineKortEl.appendChild(nyttSpillerBilde)
             }
             if (i % 2 !== 0) {
                 pcKort.push(kort[0])
-                //console.log(kort[0].value)
+                
                 let nyttPCbilde = document.createElement("img")
                 nyttPCbilde.src = "../spill/bilder/kortBakside.jpeg"
                 nyttPCbilde.setAttribute("id", kort[0].value)
@@ -104,7 +102,7 @@
         }
 
         else {
-            //console.log("et kort er duplikat")
+            
             trekkSpillerkort(i)
         }
 
@@ -273,7 +271,6 @@
             let forsøk = 0; // Teller for hvor mange ganger PC prøver å trekke kort
             while (PCkortSomKanSpilles.length == 0 && forsøk < 100) {
                 forsøk += 1;
-                //console.log("PC trekker kort forsøk nr: ", forsøk);
                 await trekkEkstraPCkort(); // Trekker nytt kort
                 PCkortSomKanSpilles = [];
                 for (let k = 0; k < pcKort.length; k++) { // Sjekker på nytt
