@@ -333,18 +333,29 @@
 
             //sjekker om spiller eller pc har vunnet
             if (pcKort.length == 0) {
+                let nyttSpillKnapp = document.getElementById("nyttSpill");
+
+
                 console.log("Pcen har vunnet")
                 let PCvant = document.createElement("img")
                 PCvant.src = "../spill/bilder/pcVant.png"
                 PCvant.id = "pcVantBilde"
                 hvemVantEl.appendChild(PCvant)
+
+                nyttSpillKnapp.style.backgroundColor = "darkred";
+                nyttSpillKnapp.style.color = "white";
             }
             else if (dineKort.length == 0) {
+                let nyttSpillKnapp = document.getElementById("nyttSpill");
+
                 console.log("Du har vunnet Yippe")
                 let SPILLERvant = document.createElement("img")
                 SPILLERvant.src = "../spill/bilder/duVant.png"
                 SPILLERvant.id = "spillerVantBilde"
                 hvemVantEl.appendChild(SPILLERvant)
+                
+                nyttSpillKnapp.style.backgroundColor = "darkred";
+                nyttSpillKnapp.style.color = "white";
             }
 
 
