@@ -140,6 +140,7 @@
             let index = dineKort.findIndex(k => k.value == this.id && k.suit == this.className);
             if (index !== -1) {
                 dineKort.splice(index, 1); // Fjern kortet fra arrayet
+                console.log(dineKort)
             }
 
             sjekkOmPCkortKanLeggesPaa()
@@ -154,6 +155,7 @@
             let index = dineKort.findIndex(k => k.value == this.id && k.suit == this.className);
             if (index !== -1) {
                 dineKort.splice(index, 1); // Fjern kortet fra arrayet
+                console.log(dineKort)
             }
 
 
@@ -166,10 +168,12 @@
             midtenKortEl.appendChild(this)
             midtenBilde.setAttribute("id", this.id)
             midtenBilde.setAttribute("class", this.className)
+            
 
             let index = dineKort.findIndex(k => k.value == this.id && k.suit == this.className);
             if (index !== -1) {
                 dineKort.splice(index, 1); // Fjern kortet fra arrayet
+                console.log(dineKort)
             }
 
             sjekkOmPCkortKanLeggesPaa()
@@ -275,7 +279,6 @@
                 PCkortSomKanSpilles.push(pcKort[k])
             }
         }
-        console.log("kortene pc-en kan legge på er: ", PCkortSomKanSpilles)
 
 
 
@@ -327,7 +330,6 @@
 
             PCkortSomKanSpilles = []
 
-            console.log("PC har lagt på kort:", valgtKort);
 
             //sjekker om spiller eller pc har vunnet
             if (pcKort.length == 0) {
