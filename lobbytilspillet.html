@@ -8,7 +8,7 @@
 <body>
     <audio src="lobbymusic1.mp3" auotplay loop id="musikk"></audio>
     <h1>Vri-åtter!</h1>
-    <div id="Hoved">
+    <div id="hoved">
         <div id="creditboks">
 
         </div>
@@ -88,9 +88,15 @@
         text-align: center;
         font-size: 20px;
         color: white;
+        background-color: skyblue;
+    }
+
+    #creditboks {
+        background-color: skyblue;
     }
 </style>
 <script>
+    let hovedboksEl=document.querySelector("#hovedboks")
     let RegelboksEl = document.querySelector("#regelboks")
     let RegelknappboksEl = document.querySelector("#regelknappboks")
     let startknappboksEl = document.querySelector("#startknapp")
@@ -115,6 +121,7 @@
         RegelboksEl.innerHTML += "plasseres, kan man trekke fra bunken frem til man har åtte kort. Hvis ingen av de kortene<br>"
         RegelboksEl.innerHTML += "kan plasseres, må du gi turen din til motstanderen. Samme regler gjelder for motstanderen.<br>"
         RegelboksEl.innerHTML += "Lykke til og håper du liker spillet!"
+        RegelboksEl.setAttribute("style", "Border: 1px solid black;")
         RegelknappboksEl.removeChild(regelknappEl)
         RegelknappboksEl.appendChild(fjernregelknappEl)
     }
@@ -123,6 +130,7 @@
 
     function fjernregler() {
         RegelboksEl.innerHTML = ""
+        RegelboksEl.removeAttribute("Style")
         RegelknappboksEl.removeChild(fjernregelknappEl)
         RegelknappboksEl.appendChild(regelknappEl)
     }
@@ -155,13 +163,16 @@
         creditboksEl.innerHTML += "<p>ulikorshh</p>"
         creditboksEl.innerHTML += "<h2>Lobby design</h2>"
         creditboksEl.innerHTML += "<p>TrickshotArne</p>"
-        creditboksEl.setAttribute("style", "Padding-right: 50px;")
+        hovedboksEl.setAttribute("style", "Padding-left: 50px;")
+        creditboksEl.setAttribute("style","Border: 1px solid black;")
+        creditboksEl.setAttribute("style", "Padding-right: 10px")
         creditknappboksEl.removeChild(creditknappEl)
         creditknappboksEl.appendChild(fjerncreditknappEl)
     }
 
     function fjerncredits() {
         creditboksEl.innerHTML = ""
+        hovedboksEl.removeAttribute("style")
         creditboksEl.removeAttribute("style")
         creditknappboksEl.removeChild(fjerncreditknappEl)
         creditknappboksEl.appendChild(creditknappEl)
