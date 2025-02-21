@@ -5,7 +5,7 @@ html {
     background-size: cover;
     background-position: center;
     display: flex;
-    padding: 30px 0px 10px;
+    padding: 15px 0px 10px;
     overflow: hidden; /*hindrer scrolling*/
 }
 
@@ -65,6 +65,7 @@ html {
 
 button {
     font-family: "Pixelify Sans", serif;
+    cursor: pointer;
 }
 
 #musikkboks {
@@ -82,20 +83,14 @@ button {
 #tilbakeTilLobby{
     margin-top: 1rem;
     margin-left: 1rem;
+    cursor: pointer;
 }
 
-#spillerVantBilde{
-    height: 30rem;
-    width: 30rem;
-}
-
-#pcVantBilde{
-    height: 30rem;
-    width: 30rem;
-}
-
-.aatter{
-    border: solid 2px orange;
+#spillerVantBilde, #pcVantBilde{
+    height: 50vh;
+    width: 50vw;
+    justify-content: center;
+    align-items: center;
 }
 
 #knapper{

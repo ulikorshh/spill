@@ -9,9 +9,6 @@
     <audio src="lobbymusic1.mp3" auotplay loop id="musikk"></audio>
     <h1>Vri-åtter!</h1>
     <div id="hoved">
-        <div id="creditboks">
-
-        </div>
         <div id="hovedboks">
             <div id="regelboks">
 
@@ -19,10 +16,7 @@
             <div id="regelknappboks">
 
             </div>
-            <div id="creditknappboks">
-
-            </div>
-            <div id="startknapp">
+            <div id="brukerknapp">
 
             </div>
         </div>
@@ -59,16 +53,13 @@
         height: 5vh auto;
     }
 
-    #startknapp>button {
+    #brukerknapp>button {
         width: 10vw auto;
         height: 5vh auto;
         font-size: 20px;
     }
 
-    h1,
-    button,
-    #creditboks,
-    #regelboks {
+    h1, button, #regelboks {
         font-family: "Pixelify Sans", serif;
         font-optical-sizing: auto;
     }
@@ -91,17 +82,12 @@
         background-color: skyblue;
     }
 
-    #creditboks {
-        background-color: skyblue;
-    }
 </style>
 <script>
     let hovedboksEl=document.querySelector("#hovedboks")
     let RegelboksEl = document.querySelector("#regelboks")
     let RegelknappboksEl = document.querySelector("#regelknappboks")
-    let startknappboksEl = document.querySelector("#startknapp")
-    let creditboksEl = document.querySelector("#creditboks")
-    let creditknappboksEl = document.querySelector("#creditknappboks")
+    let brukerknappboksEl = document.querySelector("#brukerknapp")
 
 
     let regelknappEl = document.createElement("button")
@@ -135,48 +121,15 @@
         RegelknappboksEl.appendChild(regelknappEl)
     }
 
-    let startknappEl = document.createElement("button")
-    startknappEl.innerHTML = "Start spillet!"
-    startknappEl.addEventListener("click", redirecttilspill)
-    startknappboksEl.appendChild(startknappEl)
+    let brukerknappEl = document.createElement("button")
+    brukerknappEl.innerHTML = "Start spillet!"
+    brukerknappEl.addEventListener("click", redirecttillogin)
+    brukerknappboksEl.appendChild(brukerknappEl)
 
-    function redirecttilspill() {
-        window.location.replace("yippe.html")
+    function redirecttillogin() {
+        window.location.replace("brukernavn.html")
     }
 
-    let creditknappEl = document.createElement("button")
-    let fjerncreditknappEl = document.createElement("button")
-    creditknappEl.innerHTML = "Kreditter"
-    fjerncreditknappEl.innerHTML = "Lukk kreditter"
-    creditknappEl.addEventListener("click", viscredits)
-    fjerncreditknappEl.addEventListener("click", fjerncredits)
-    // creditknappboksEl.appendChild(creditknappEl)
-
-    function viscredits() {
-        creditboksEl.innerHTML += "<h2>Lead programmer</h2>"
-        creditboksEl.innerHTML += "<p>sofiyaborshch</p>"
-        creditboksEl.innerHTML += "<h2>Assistant programmers</h2>"
-        creditboksEl.innerHTML += "<p>TrickshotArne</p>"
-        creditboksEl.innerHTML += "<p>ulikorshh</p>"
-        creditboksEl.innerHTML += "<h2>Game design</h2>"
-        creditboksEl.innerHTML += "<p>sofiyaborshch</p>"
-        creditboksEl.innerHTML += "<p>ulikorshh</p>"
-        creditboksEl.innerHTML += "<h2>Lobby design</h2>"
-        creditboksEl.innerHTML += "<p>TrickshotArne</p>"
-        hovedboksEl.setAttribute("style", "Padding-left: 50px;")
-        creditboksEl.setAttribute("style","Border: 1px solid black;")
-        creditboksEl.setAttribute("style", "Padding-right: 10px")
-        creditknappboksEl.removeChild(creditknappEl)
-        creditknappboksEl.appendChild(fjerncreditknappEl)
-    }
-
-    function fjerncredits() {
-        creditboksEl.innerHTML = ""
-        hovedboksEl.removeAttribute("style")
-        creditboksEl.removeAttribute("style")
-        creditknappboksEl.removeChild(fjerncreditknappEl)
-        creditknappboksEl.appendChild(creditknappEl)
-    }
     let musikkboksEl = document.querySelector("#musikkboks")
     let musikkEl = document.querySelector("#musikk")
     let musikknappEl = document.createElement("button")

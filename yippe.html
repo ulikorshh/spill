@@ -9,7 +9,7 @@
 
 <main>
 
-<audio src="spillmusikk1.mp3" auotplay loop id="musikk"></audio>
+<audio src="../spill/musikk/spillmusikk1.mp3" auotplay loop id="musikk"></audio>
 <div id="selveSpillet">
     <div id="pcKort"></div>
 
@@ -26,16 +26,26 @@
 
     <div id="dineKort"></div>
 </div>
+<div id="visBrukernavn"></div>
 <div id="musikkboks">
     
 </div>
 </main>
 
-
-
 </html>
 
 <script>
+    window.onload = function () {
+    let brukernavn = localStorage.getItem("brukernavn");
+    if (brukernavn) {
+        let visBrukernavnEl = document.getElementById("visBrukernavn");
+        visBrukernavnEl.innerText = "Spillernavn: " + brukernavn;
+        visBrukernavnEl.style.color = "white";
+        visBrukernavnEl.style.fontFamily = '"Pixelify Sans", serif';
+        visBrukernavnEl.style.fontSize = "20px";
+    }
+    }
+
     tilbakeTilLobbyEl = document.getElementById("tilbakeTilLobby")
     tilbakeTilLobbyEl.addEventListener("click",tilLobby)
 
@@ -59,8 +69,6 @@
     let dineKort = []
     let pcKort = []
     let kort_koder = []
-
-    //let erSpillerAktiv = true
 
     let trekkSpillerkort = async (i) => {
 
@@ -93,11 +101,8 @@
                 nyttSpillerBilde.setAttribute("id", kort[0].value)
                 nyttSpillerBilde.setAttribute("class", kort[0].suit)
                 dineKortEl.appendChild(nyttSpillerBilde)
-
-                if(nyttSpillerBilde.id==8){
-                    nyttSpillerBilde.classList.add("aatter")
-                }
             }
+
             if (i % 2 !== 0) {
                 pcKort.push(kort[0])
                 
@@ -127,7 +132,6 @@
 
 
         if (this.id == midtenBilde.id) {
-            //console.log("lik value")
             midtenKortEl.innerHTML = ""
             midtenKortEl.appendChild(this)
             midtenBilde.setAttribute("id", this.id)
@@ -142,7 +146,6 @@
         }
 
         else if (this.className == midtenBilde.className) { //className og ikke class fordi class er bare "suit", mens classname er nøkkelen, f.eks "Diamonds"
-            //console.log("lik suit")
             midtenKortEl.innerHTML = ""
             midtenKortEl.appendChild(this)
             midtenBilde.setAttribute("id", this.id)
@@ -204,10 +207,6 @@
             nyttSpillerBilde.setAttribute("id", kort[0].value)
             nyttSpillerBilde.setAttribute("class", kort[0].suit)
             dineKortEl.appendChild(nyttSpillerBilde)
-
-            if(nyttSpillerBilde.id==8){
-                    nyttSpillerBilde.classList.add("aatter")
-                }
         }
 
 
@@ -299,7 +298,7 @@
             let valgtKort = PCkortSomKanSpilles[kortetPCvelger];
 
             let pcSpiltKort = document.createElement("img");
-            pcSpiltKort.src = valgtKort.image;
+            pcSpiltKort.src = (valgtKort.image);
             pcSpiltKort.setAttribute("id", valgtKort.value);
             pcSpiltKort.setAttribute("class", valgtKort.suit);
 
