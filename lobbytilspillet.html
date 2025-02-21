@@ -32,11 +32,15 @@
     </div>
 </body>
 <style>
+    html {
+        background-image: url(lobbyBakgrunn3.jpg);
+        background-size: cover;
+    }
+
     #Hoved {
         display: flex;
         flex-direction: row;
         justify-content: center;
-        background-image: url();
     }
 
     #hovedboks {
@@ -135,7 +139,7 @@
     fjerncreditknappEl.innerHTML = "Lukk kreditter"
     creditknappEl.addEventListener("click", viscredits)
     fjerncreditknappEl.addEventListener("click", fjerncredits)
-    creditknappboksEl.appendChild(creditknappEl)
+    // creditknappboksEl.appendChild(creditknappEl)
 
     function viscredits() {
         creditboksEl.innerHTML += "<h2>Lead programmer</h2>"
