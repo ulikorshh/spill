@@ -2,20 +2,21 @@
 
 <button id="tilbakeTilLobby">Lobby!</button>
 
-<link rel="stylesheet" href="../spill/spillcss.css">
+<link rel="stylesheet" href="spillcss.css">
 
+<!-- font -->
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Pixelify+Sans:wght@400..700&display=swap"
     rel="stylesheet">
 
 <main>
 
-<audio src="../spill/musikk/spillmusikk1.mp3" auotplay loop id="musikk"></audio>
+<audio src="musikk/spillmusikk1.mp3" autoplay loop id="musikk"></audio>
 <div id="selveSpillet">
     <div id="pcKort"></div>
 
     <div id="midtenAvSkjermen">
         <div id="midtenKort"></div>
-        <div id="kortstokk"> <img src="../spill/bilder/kortstokkBilde.jpeg" alt="" title="Trekk kort"> </div>
+        <div id="kortstokk"> <img src="bilder/kortstokkBilde.jpeg" alt="" title="Trekk kort"> </div> 
         <div id="forMangeSpillerKort"></div>
         <div id="hvemVant"></div>
         <div id="knapper">
@@ -36,10 +37,10 @@
 
 <script>
     window.onload = function () {
-    let brukernavn = localStorage.getItem("brukernavn");
+    let brukernavn = localStorage.getItem("brukernavn"); //henter ut informasjonen lagra i localStorage under id-en visBrukernavn
     if (brukernavn) {
         let visBrukernavnEl = document.getElementById("visBrukernavn");
-        visBrukernavnEl.innerText = "Spillernavn: " + brukernavn;
+        visBrukernavnEl.innerText = "Spillernavn: " + brukernavn; //funker som innerHTML
         visBrukernavnEl.style.color = "white";
         visBrukernavnEl.style.fontFamily = '"Pixelify Sans", serif';
         visBrukernavnEl.style.fontSize = "20px";
@@ -65,7 +66,7 @@
     hvemVantEl = document.querySelector("#hvemVant")
 
     let midtenBilde = ""
-    let antall = 11
+    let antall = 11 //5 kort til hver og ett i midten
     let dineKort = []
     let pcKort = []
     let kort_koder = []
@@ -76,11 +77,11 @@
         let json = await data.json()
         let kort = json.cards
 
-        if (!kort_koder.includes(kort[0].code)) {
-            kort_koder.push(kort[0].code)
+        if (!kort_koder.includes(kort[0].code)) { //hvis lista med kort_koder ikke inkluderer kortet allerede:
+            kort_koder.push(kort[0].code) //da addes kortet til kort_koder
 
 
-            if (i == 10) {
+            if (i == 10) { //starter fra 0, ikke fra 1
                 midtenBilde = document.createElement("img")
                 midtenBilde.src = (kort[0].image)
                 midtenBilde.setAttribute("id", kort[0].value)
@@ -91,7 +92,9 @@
 
             }
 
-            else if (i % 2 == 0) {
+            //gir annenhvert kort til spiller og pc
+
+            else if (i % 2 == 0) { //hvis partall -> gir til spiller
                 dineKort.push(kort[0])
                 
 
@@ -103,11 +106,11 @@
                 dineKortEl.appendChild(nyttSpillerBilde)
             }
 
-            if (i % 2 !== 0) {
+            if (i % 2 !== 0) { //hvis oddetall -> gir til pc
                 pcKort.push(kort[0])
                 
                 let nyttPCbilde = document.createElement("img")
-                nyttPCbilde.src = "../spill/bilder/kortBakside.jpeg"
+                nyttPCbilde.src = "bilder/kortBakside.jpeg"
                 nyttPCbilde.setAttribute("id", kort[0].value)
                 nyttPCbilde.setAttribute("class", kort[0].suit)
 
@@ -117,33 +120,34 @@
         }
 
         else {
-            
+            //hvis kortet allerede er i listen, kjøres funksjonen igjen
             trekkSpillerkort(i)
+            //siden i brukes i funksjonen, for å holde styr på hvilket trekk i rekkefølgen vi er på
         }
 
     }
 
-    for (i = 0; i < antall; i++) {
+    for (i = 0; i < antall; i++) { 
         trekkSpillerkort(i)
     }
 
 
-    function sjekkKanLeggesPaa() {
+    function sjekkKanLeggesPaa() { //sjekker om kortet du trykker på kan legges på
 
 
-        if (this.id == midtenBilde.id) {
-            midtenKortEl.innerHTML = ""
-            midtenKortEl.appendChild(this)
-            midtenBilde.setAttribute("id", this.id)
-            midtenBilde.setAttribute("class", this.className)
+        if (this.id == midtenBilde.id) { //this.id = elementet du trykker på sin id
+            midtenKortEl.innerHTML = "" //fjerner midtenkortet som allerede er der
+            midtenKortEl.appendChild(this) //legger på kortet du trykket på til midten
+            midtenBilde.setAttribute("id", this.id) 
+            midtenBilde.setAttribute("class", this.className) //className og ikke class fordi class er bare "suit", mens classname er nøkkelen, f.eks "Diamonds"
 
-            let index = dineKort.findIndex(k => k.value == this.id && k.suit == this.className);
-            if (index !== -1) {
+            let index = dineKort.findIndex(k => k.value == this.id && k.suit == this.className); //hvilken plass i arrayen har kortet som vi ønsker å legge på
+            if (index !== -1) { //for at det alltid skal gå, hvis plassen ikke er ugyldig
                 dineKort.splice(index, 1); // Fjern kortet fra arrayet
                 console.log(dineKort)
             }
 
-            sjekkOmPCkortKanLeggesPaa()
+            sjekkOmPCkortKanLeggesPaa() //siden spiller har lagt på, er det nå pc-en sin tur
         }
 
         else if (this.className == midtenBilde.className) { //className og ikke class fordi class er bare "suit", mens classname er nøkkelen, f.eks "Diamonds"
@@ -162,7 +166,7 @@
             sjekkOmPCkortKanLeggesPaa()
         }
 
-        else if (this.id == 8) {
+        else if (this.id == 8) { //fordi vri åtter
 
             midtenKortEl.innerHTML = ""
             midtenKortEl.appendChild(this)
@@ -193,7 +197,7 @@
             forMangeSpillerKort.innerHTML += "på, eller trykk på knappen som lar pc-en spille."
             setTimeout(() => {
                 forMangeSpillerKort.innerHTML = ""; //Fjerner meldingen etter 3 sekunder
-            }, 6000);
+            }, 3000);
             return
         }
 
@@ -233,7 +237,7 @@
         if (pcKort.length == 8) {
             if (PCkortSomKanSpilles.length == 0) {
                 forMangeSpillerKort.innerHTML = "Pc-en har ikke noe å legge på! Din tur : )"
-                return
+                return //hvis pc-en har max antall kort og ikke kan legge på noen av dem, skriver den melding og avslutter funksjon
             }
 
         }
@@ -246,7 +250,7 @@
             kort_koder.push(kort[0].code)
             pcKort.push(kort[0])
             let nyttPCBilde = document.createElement("img")
-            nyttPCBilde.src = "../spill/bilder/kortBakside.jpeg"
+            nyttPCBilde.src = "bilder/kortBakside.jpeg" //gjør sånn at spilleren ser baksiden av pckortet
             nyttPCBilde.addEventListener("click", sjekkOmPCkortKanLeggesPaa)
             nyttPCBilde.setAttribute("id", kort[0].value)
             nyttPCBilde.setAttribute("class", kort[0].suit)
@@ -258,13 +262,9 @@
         }
     }
 
-    function drittFunksjon() {
-        sjekkOmPCkortKanLeggesPaa()
-    }
-
     function sjekkOmPCkortKanLeggesPaa() {
 
-        for (let k = 0; k < pcKort.length; k++) {
+        for (let k = 0; k < pcKort.length; k++) { //sjekker gjennom alle pc-kort
             if (pcKort[k].value == midtenBilde.id) {
                 PCkortSomKanSpilles.push(pcKort[k])
 
@@ -285,28 +285,29 @@
         setTimeout(async () => { //async, venter på at trekkEkstaPCKort skal bli ferdig før den kjører funksjonen sjekkOmPCkortKanLeggesPaa videre
 
             let forsøk = 0; // Teller for hvor mange ganger PC prøver å trekke kort
-            while (PCkortSomKanSpilles.length == 0 && forsøk < 100) {
+            while (PCkortSomKanSpilles.length == 0 && forsøk < 100) { //maks antall forsøk sånn at den ikke prøver å trekke uendelig mange kort
                 forsøk += 1;
                 await trekkEkstraPCkort(); // Trekker nytt kort
-                PCkortSomKanSpilles = [];
-                for (let k = 0; k < pcKort.length; k++) { // Sjekker på nytt
+                PCkortSomKanSpilles = []; //tømmer for sikkerhetsskyld
+                for (let k = 0; k < pcKort.length; k++) { // Sjekker om det nye kortet kan spilles
                     if (pcKort[k].value == midtenBilde.id || pcKort[k].suit == midtenBilde.className || pcKort[k].value == 8) {
-                        PCkortSomKanSpilles.push(pcKort[k]);
+                        PCkortSomKanSpilles.push(pcKort[k]); //legges til pc-kort
                     }
                 }
+                //hvis kortet ikke matcher, går den tilbake til while-løkken
             }
 
 
-            let kortetPCvelger = Math.floor(Math.random() * PCkortSomKanSpilles.length);
-            let valgtKort = PCkortSomKanSpilles[kortetPCvelger];
+            let kortetPCvelger = Math.floor(Math.random() * PCkortSomKanSpilles.length); //velger et tall
+            let valgtKort = PCkortSomKanSpilles[kortetPCvelger]; 
 
             let pcSpiltKort = document.createElement("img");
-            pcSpiltKort.src = (valgtKort.image);
+            pcSpiltKort.src = valgtKort.image;
             pcSpiltKort.setAttribute("id", valgtKort.value);
             pcSpiltKort.setAttribute("class", valgtKort.suit);
 
 
-            midtenKortEl.innerHTML = "";
+            midtenKortEl.innerHTML = ""; //fjerner midtenkortet og legger på kortet pc-en spiller
             midtenKortEl.appendChild(pcSpiltKort);
 
             midtenBilde.setAttribute("id", valgtKort.value);
@@ -314,7 +315,7 @@
 
             let index_koder = kort_koder.indexOf(valgtKort.code) //fjerner kort som spilles fra koder listen. Dette forsikrer at det ikke går tomt for kort å trekke (siden kort som holdes av enten pc eller spilleren ikke kan trekkes, da de allerede er trukket.)
             if (index_koder !== -1) {
-                kort_koder.splice(index_koder, 1); // Fjern kortet fra pcKort-listen
+                kort_koder.splice(index_koder, 1); 
             }
 
 
@@ -328,7 +329,7 @@
                 pcKortEl.removeChild(kortElement); // Fjern det fra HTML
             }
 
-            PCkortSomKanSpilles = []
+            PCkortSomKanSpilles = [] //tømme mellom hvert kort spilleren spiller
 
 
             //sjekker om spiller eller pc har vunnet
@@ -338,7 +339,7 @@
 
                 console.log("Pcen har vunnet")
                 let PCvant = document.createElement("img")
-                PCvant.src = "../spill/bilder/pcVant.png"
+                PCvant.src = "bilder/pcVant.png"
                 PCvant.id = "pcVantBilde"
                 hvemVantEl.appendChild(PCvant)
 
@@ -350,7 +351,7 @@
 
                 console.log("Du har vunnet Yippe")
                 let SPILLERvant = document.createElement("img")
-                SPILLERvant.src = "../spill/bilder/duVant.png"
+                SPILLERvant.src = "bilder/duVant.png"
                 SPILLERvant.id = "spillerVantBilde"
                 hvemVantEl.appendChild(SPILLERvant)
                 

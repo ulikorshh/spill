@@ -1,5 +1,6 @@
 <html>
     <link
+
         href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Pixelify+Sans:wght@400..700&display=swap"
         rel="stylesheet">
 <body>
@@ -18,7 +19,7 @@
 html {
     height: 100vh;
     width: 100vw;
-    background-image: url(../spill/bilder/spillBakgrunn.jpeg);
+    background-image: url(bilder/spillBakgrunn.jpeg);
     background-size: cover;
     background-position: center;
 }
@@ -53,12 +54,16 @@ button {
     startknappboksEl.appendChild(startknappEl)
 
     function redirecttilspill() {
+    //velger valuen av det du skriver inn 
     let brukernavnInput = document.querySelector("input[name='brukernavn']").value;
-    if (brukernavnInput.trim() !== "") {
+
+    if (brukernavnInput.trim() !== "") { //hvis brukernavnet ikke er ingenting:    //trim fjerner mellomrom før og etter teksten
+
         localStorage.setItem("brukernavn", brukernavnInput); // Lagre brukernavnet
-        window.location.replace("yippe.html");
+        window.location.replace("yippe.html"); //sender det til jippe siden
+
     } else {
-        alert("Vennligst skriv inn brukernavn!");
+        alert("Vennligst skriv inn brukernavn!"); //kommer feilmelding, hvis man ikke skriver inn brukernavn
     }
 }
 </script>
