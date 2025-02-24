@@ -47,6 +47,7 @@
     }
     }
 
+    //lobby knapp
     tilbakeTilLobbyEl = document.getElementById("tilbakeTilLobby")
     tilbakeTilLobbyEl.addEventListener("click",tilLobby)
 
@@ -334,6 +335,7 @@
 
             //sjekker om spiller eller pc har vunnet
             if (pcKort.length == 0) {
+                //gir knappen en id som gjør den rød
                 let nyttSpillKnapp = document.getElementById("nyttSpill");
 
 
@@ -378,7 +380,7 @@
     musikkboksEl.appendChild(musikknappEl)
     function musikk() {
         musikkEl.play()
-        musikkboksEl.removeChild(musikknappEl)
+        musikkboksEl.removeChild(musikknappEl) //fjerner add-musikk knapp og adder fjern-musikk knapp
         musikkboksEl.appendChild(fjernmusikkknappEl)
     }
 

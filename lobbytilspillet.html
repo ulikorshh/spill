@@ -2,33 +2,28 @@
     <meta charset="UTF-8">
     <link
         href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Pixelify+Sans:wght@400..700&display=swap"
-        rel="stylesheet">
+        rel="stylesheet"> <!-- font -->
 </head>
 
 <body>
-    <audio src="musikk/lobbymusic1.mp3" auotplay loop id="musikk"></audio>
+    <audio src="musikk/lobbymusic1.mp3" autoplay loop id="musikk"></audio>
     <h1>Vri-åtter!</h1>
+
     <div id="hoved">
         <div id="hovedboks">
-            <div id="regelboks">
-
-            </div>
-            <div id="regelknappboks">
-
-            </div>
-            <div id="brukerknapp">
-
-            </div>
+            <div id="regelboks"></div>
+            <div id="regelknappboks"></div>
+            <div id="brukerknapp"></div>
         </div>
     </div>
-    <div id="musikkboks">
 
-    </div>
+    <div id="musikkboks"></div>
+
 </body>
 <style>
     html {
         background-image: url(bilder/lobbyBakgrunn3.jpg);
-        background-size: cover;
+        background-size: cover; /* går over hele skjermen */
     }
 
     #Hoved {
@@ -55,7 +50,7 @@
     }
 
     #brukerknapp>button {
-        width: 10vw auto;
+        width: 10vw auto; /*større for å være mer synlig*/
         height: 5vh auto;
         font-size: 20px;
     }
@@ -72,7 +67,7 @@
     }
 
     #musikkboks {
-        position: fixed;
+        position: fixed; /* plasserer på bunn høyre */
         bottom: 10px;
         right: 10px;
     }
@@ -108,7 +103,7 @@
         RegelboksEl.innerHTML += "plasseres, kan man trekke fra bunken frem til man har åtte kort. Hvis ingen av de kortene<br>"
         RegelboksEl.innerHTML += "kan plasseres, må du gi turen din til motstanderen. Samme regler gjelder for motstanderen.<br>"
         RegelboksEl.innerHTML += "Lykke til og håper du liker spillet!"
-        RegelboksEl.setAttribute("style", "Border: 1px solid black;")
+        RegelboksEl.setAttribute("style", "Border: 1px solid black;") //borderen lages kun når funksjonen kjøres
         RegelknappboksEl.removeChild(regelknappEl)
         RegelknappboksEl.appendChild(fjernregelknappEl)
     }
@@ -117,7 +112,7 @@
 
     function fjernregler() {
         RegelboksEl.innerHTML = ""
-        RegelboksEl.removeAttribute("Style")
+        RegelboksEl.removeAttribute("Style") //fjerner borderen
         RegelknappboksEl.removeChild(fjernregelknappEl)
         RegelknappboksEl.appendChild(regelknappEl)
     }

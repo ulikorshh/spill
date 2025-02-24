@@ -5,7 +5,7 @@ html {
     background-size: cover;
     background-position: center;
     display: flex;
-    padding: 15px 0px 10px;
+    padding: 15px 0px 10px; 
     overflow: hidden; /*hindrer scrolling*/
 }
 
@@ -14,17 +14,17 @@ html {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-between; /*første element plasseres til venstre, og de neste til høyre*/
     gap: 40px;
 }
 
 #dineKort img {
     cursor: pointer;
-    transition: transform 0.3s;
+    transition: transform 0.3s; /*transformer i 0.3 sek*/
 } 
 
 #dineKort img:hover {
-    transform: scale(1.1);
+    transform: scale(1.1); /*transformer til 1.1 av størrelsen sin*/
 }
 
 #midtenAvSkjermen {
@@ -53,12 +53,7 @@ html {
     cursor: pointer;
 }
 
-#dineKort>img, #midtenKort>img {
-    width: 107px;
-    height: 175px;
-}
-
-#kortstokk>img, #pcKort>img {
+#dineKort>img, #midtenKort>img, #kortstokk>img, #pcKort>img {
     width: 107px;
     height: 175px;
 }
