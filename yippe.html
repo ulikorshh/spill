@@ -5,59 +5,60 @@
 <link rel="stylesheet" href="spillcss.css">
 
 <!-- font -->
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Pixelify+Sans:wght@400..700&display=swap"
+<link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Pixelify+Sans:wght@400..700&display=swap"
     rel="stylesheet">
 
 <main>
 
-<audio src="musikk/spillmusikk1.mp3" autoplay loop id="musikk"></audio>
-<div id="selveSpillet">
-    <div id="pcKort"></div>
+    <audio src="musikk/spillmusikk1.mp3" autoplay loop id="musikk"></audio>
+    <div id="selveSpillet">
+        <div id="pcKort"></div>
 
-    <div id="midtenAvSkjermen">
-        <div id="midtenKort"></div>
-        <div id="kortstokk"> <img src="bilder/kortstokkBilde.jpeg" alt="" title="Trekk kort"> </div> 
-        <div id="forMangeSpillerKort"></div>
-        <div id="hvemVant"></div>
-        <div id="knapper">
-            <button id="laPCspilleKnapp">Skip runde - pc sin tur!</button>
-            <button id="nyttSpill">Nytt spill</button>
+        <div id="midtenAvSkjermen">
+            <div id="midtenKort"></div>
+            <div id="kortstokk"> <img src="bilder/kortstokkBilde.jpeg" alt="" title="Trekk kort"> </div>
+            <div id="forMangeSpillerKort"></div>
+            <div id="hvemVant"></div>
+            <div id="knapper">
+                <button id="laPCspilleKnapp">Skip runde - pc sin tur!</button>
+                <button id="nyttSpill">Nytt spill</button>
+            </div>
         </div>
-    </div>
 
-    <div id="dineKort"></div>
-</div>
-<div id="visBrukernavn"></div>
-<div id="musikkboks">
-    
-</div>
+        <div id="dineKort"></div>
+    </div>
+    <div id="visBrukernavn"></div>
+    <div id="musikkboks">
+
+    </div>
 </main>
 
 </html>
 
 <script>
     window.onload = function () {
-    let brukernavn = localStorage.getItem("brukernavn"); //henter ut informasjonen lagra i localStorage under id-en visBrukernavn
-    if (brukernavn) {
-        let visBrukernavnEl = document.getElementById("visBrukernavn");
-        visBrukernavnEl.innerText = "Spillernavn: " + brukernavn; //funker som innerHTML
-        visBrukernavnEl.style.color = "white";
-        visBrukernavnEl.style.fontFamily = '"Pixelify Sans", serif';
-        visBrukernavnEl.style.fontSize = "20px";
-    }
+        let brukernavn = localStorage.getItem("brukernavn"); //henter ut informasjonen lagra i localStorage under id-en visBrukernavn
+        if (brukernavn) {
+            let visBrukernavnEl = document.getElementById("visBrukernavn");
+            visBrukernavnEl.innerText = "Spillernavn: " + brukernavn; //funker som innerHTML
+            visBrukernavnEl.style.color = "white";
+            visBrukernavnEl.style.fontFamily = '"Pixelify Sans", serif';
+            visBrukernavnEl.style.fontSize = "20px";
+        }
     }
 
     //lobby knapp
     tilbakeTilLobbyEl = document.getElementById("tilbakeTilLobby")
-    tilbakeTilLobbyEl.addEventListener("click",tilLobby)
+    tilbakeTilLobbyEl.addEventListener("click", tilLobby)
 
-    function tilLobby(){
+    function tilLobby() {
         window.location.replace("lobbytilspillet.html")
     }
 
-    document.getElementById("nyttSpill").addEventListener("click", function() {
-    location.reload(); // Refresher siden
-});
+    document.getElementById("nyttSpill").addEventListener("click", function () {
+        location.reload(); // Refresher siden
+    });
 
     selveSpilletEl = document.querySelector("#selveSpillet")
     pcKortEl = document.querySelector("#pcKort")
@@ -97,7 +98,7 @@
 
             else if (i % 2 == 0) { //hvis partall -> gir til spiller
                 dineKort.push(kort[0])
-                
+
 
                 let nyttSpillerBilde = document.createElement("img")
                 nyttSpillerBilde.src = (kort[0].image)
@@ -109,13 +110,13 @@
 
             if (i % 2 !== 0) { //hvis oddetall -> gir til pc
                 pcKort.push(kort[0])
-                
-                let nyttPCbilde = document.createElement("img")
-                nyttPCbilde.src = "bilder/kortBakside.jpeg"
-                nyttPCbilde.setAttribute("id", kort[0].value)
-                nyttPCbilde.setAttribute("class", kort[0].suit)
 
-                pcKortEl.appendChild(nyttPCbilde)
+                let nyttPCBilde = document.createElement("img")
+                nyttPCBilde.src = "bilder/kortBakside.jpeg"
+                nyttPCBilde.setAttribute("id", kort[0].value)
+                nyttPCBilde.setAttribute("class", kort[0].suit)
+
+                pcKortEl.appendChild(nyttPCBilde)
             }
 
         }
@@ -128,7 +129,7 @@
 
     }
 
-    for (i = 0; i < antall; i++) { 
+    for (i = 0; i < antall; i++) {
         trekkSpillerkort(i)
     }
 
@@ -139,7 +140,7 @@
         if (this.id == midtenBilde.id) { //this.id = elementet du trykker på sin id
             midtenKortEl.innerHTML = "" //fjerner midtenkortet som allerede er der
             midtenKortEl.appendChild(this) //legger på kortet du trykket på til midten
-            midtenBilde.setAttribute("id", this.id) 
+            midtenBilde.setAttribute("id", this.id)
             midtenBilde.setAttribute("class", this.className) //className og ikke class fordi class er bare "suit", mens classname er nøkkelen, f.eks "Diamonds"
 
             let index = dineKort.findIndex(k => k.value == this.id && k.suit == this.className); //hvilken plass i arrayen har kortet som vi ønsker å legge på
@@ -173,7 +174,7 @@
             midtenKortEl.appendChild(this)
             midtenBilde.setAttribute("id", this.id)
             midtenBilde.setAttribute("class", this.className)
-            
+
 
             let index = dineKort.findIndex(k => k.value == this.id && k.suit == this.className);
             if (index !== -1) {
@@ -238,7 +239,9 @@
         if (pcKort.length == 8) {
             if (PCkortSomKanSpilles.length == 0) {
                 forMangeSpillerKort.innerHTML = "Pc-en har ikke noe å legge på! Din tur : )"
-                return //hvis pc-en har max antall kort og ikke kan legge på noen av dem, skriver den melding og avslutter funksjon
+                setTimeout(() => {
+                    forMangeSpillerKort.innerHTML = ""; //Fjerner meldingen etter 3 sekunder
+                }, 3000); //hvis pc-en har max antall kort og ikke kan legge på noen av dem, skriver den melding og avslutter funksjon
             }
 
         }
@@ -300,7 +303,7 @@
 
 
             let kortetPCvelger = Math.floor(Math.random() * PCkortSomKanSpilles.length); //velger et tall
-            let valgtKort = PCkortSomKanSpilles[kortetPCvelger]; 
+            let valgtKort = PCkortSomKanSpilles[kortetPCvelger];
 
             let pcSpiltKort = document.createElement("img");
             pcSpiltKort.src = valgtKort.image;
@@ -316,7 +319,7 @@
 
             let index_koder = kort_koder.indexOf(valgtKort.code) //fjerner kort som spilles fra koder listen. Dette forsikrer at det ikke går tomt for kort å trekke (siden kort som holdes av enten pc eller spilleren ikke kan trekkes, da de allerede er trukket.)
             if (index_koder !== -1) {
-                kort_koder.splice(index_koder, 1); 
+                kort_koder.splice(index_koder, 1);
             }
 
 
@@ -347,6 +350,12 @@
 
                 nyttSpillKnapp.style.backgroundColor = "darkred";
                 nyttSpillKnapp.style.color = "white";
+
+                for (i in dineKort.length) {
+                    nyttSpillerBilde[i].removeEventListener()
+                }
+                kortstokkEl.innerHTML = ""
+
             }
             else if (dineKort.length == 0) {
                 let nyttSpillKnapp = document.getElementById("nyttSpill");
@@ -356,9 +365,11 @@
                 SPILLERvant.src = "bilder/duVant.png"
                 SPILLERvant.id = "spillerVantBilde"
                 hvemVantEl.appendChild(SPILLERvant)
-                
+
                 nyttSpillKnapp.style.backgroundColor = "darkred";
                 nyttSpillKnapp.style.color = "white";
+
+                kortstokkEl.innerHTML = ""
             }
 
 
